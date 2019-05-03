@@ -8,3 +8,10 @@ A - Application based and Automated unit tests.
 
 3 - What is the F# REPL called?
 A - F# Interactive.
+
+Quick check 3.2 answers:
+1 - Do scripts need a project in order to run?
+A - No. Fsharp scripts are, by definition, stand alone files meant to be processed (interpreted via e.g. fsi) on demand.
+
+2 - Give two reasons that you might use a script rather than coding directly into FSI.
+A - Aside the problem of persistence, as code typed directly into fsi is not saved anywhere and disappears after the executable is closed (or the session is reset, amongst others), the main reasons would be for the intellisense provided, which enormously simplifies the process of coding, and the syntax highlighting that makes the code more clear to read.
