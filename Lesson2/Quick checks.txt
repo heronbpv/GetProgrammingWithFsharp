@@ -8,9 +8,14 @@ A - This attribute indicates the starting point of the program, and it the equiv
 (Refer to pg. 28, second bullet point)
 
 3 - What are the two types of F# files in a project?
-A - The first is the .fs file, which represents compiled fsharp code that's part of a project or solution, akin to .cs .vb files in the large .NET ecossystem. The second is the .fsx file, which represents a stand alone script that must be interpreted in order to run, usually by the fsi.exe program (F# Interactive).
+A - The first is the .fs file, which represents compiled fsharp code that's part of a project or solution, akin to .cs and .vb files in the large .NET ecossystem. The second is the .fsx file, which represents a stand alone script that must be interpreted in order to run, usually by the fsi.exe program (F# Interactive).
 (Refer to pg. 28, box "F# file types")
 
 Quick check 2.2 answers:
 1 - What keyboard shortcut is used for adding debug breakpoints?
 A - F9
+
+Quick check 2.3 answers:
+1 - What placeholder is used for printing strings in printfn ?
+A - %s
+(refer to pg. 32, box "printf in F#")

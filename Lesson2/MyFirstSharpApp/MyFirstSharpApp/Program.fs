@@ -3,5 +3,6 @@
 
 [<EntryPoint>]
 let main argv = 
-    printfn "%A" argv
+    let items = argv.Length
+    printfn "Passed in %d items: %A" items argv
     0 // return an integer exit code
