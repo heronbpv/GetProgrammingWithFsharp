@@ -1,0 +1,8 @@
+D:\Programacao\GetProgrammingWithFsharp\Lesson2\MyFirstSharpApp\MyFirstSharpApp\bin\Debug\MyFirstSharpApp.exe.config
+D:\Programacao\GetProgrammingWithFsharp\Lesson2\MyFirstSharpApp\MyFirstSharpApp\bin\Debug\MyFirstSharpApp.XML
+D:\Programacao\GetProgrammingWithFsharp\Lesson2\MyFirstSharpApp\MyFirstSharpApp\bin\Debug\MyFirstSharpApp.exe
+D:\Programacao\GetProgrammingWithFsharp\Lesson2\MyFirstSharpApp\MyFirstSharpApp\bin\Debug\MyFirstSharpApp.pdb
+D:\Programacao\GetProgrammingWithFsharp\Lesson2\MyFirstSharpApp\MyFirstSharpApp\bin\Debug\FSharp.Core.dll
+D:\Programacao\GetProgrammingWithFsharp\Lesson2\MyFirstSharpApp\MyFirstSharpApp\bin\Debug\FSharp.Core.xml
+D:\Programacao\GetProgrammingWithFsharp\Lesson2\MyFirstSharpApp\MyFirstSharpApp\obj\Debug\MyFirstSharpApp.exe
+D:\Programacao\GetProgrammingWithFsharp\Lesson2\MyFirstSharpApp\MyFirstSharpApp\obj\Debug\MyFirstSharpApp.pdb
