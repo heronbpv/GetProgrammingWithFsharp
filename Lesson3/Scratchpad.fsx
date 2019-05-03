@@ -22,3 +22,24 @@ countWords "thistest.separatesinaperiod"
 countWords "thistest. containsaperiod"
 
 //File creation
+open System.IO
+
+let writeToFile (text:string) (writer:StreamWriter) =
+    writer.WriteLine(text)
+
+let createFile name text =
+    using (File.CreateText(name)) (writeToFile text)
+
+//Formats text to be saved later
+let formatText (text:string) = 
+    sprintf "%0d|%s" (countWords text) text
+
+//Testing the formatText function
+formatText "This is a test"
+formatText " "
+formatText null
+formatText "thisisatest"
+formatText "thisis   atestwith   toomanyspaces"
+formatText "thistest.separatesinaperiod"
+formatText "thistest. containsaperiod"
+
