@@ -23,12 +23,11 @@ countWords "thistest. containsaperiod"
 
 //File creation
 open System.IO
+open System
 
-let writeToFile (text:string) (writer:StreamWriter) =
-    writer.WriteLine(text)
-
-let createFile name text =
-    using (File.CreateText(name)) (writeToFile text)
+let writeToFile name text =
+    let path = Path.Combine(__SOURCE_DIRECTORY__, name)
+    File.WriteAllText(path, text, System.Text.Encoding.UTF8) //Forgetting to use path instead of name here has cost me a lot of time...
 
 //Formats text to be saved later
 let formatText (text:string) = 
@@ -42,4 +41,8 @@ formatText "thisisatest"
 formatText "thisis   atestwith   toomanyspaces"
 formatText "thistest.separatesinaperiod"
 formatText "thistest. containsaperiod"
+
+//Testing the file creation functions
+formatText "This is a test"
+|> writeToFile "FirstTest.txt"
 
