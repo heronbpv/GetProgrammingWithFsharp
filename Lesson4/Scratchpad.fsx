@@ -24,3 +24,16 @@ let form =
     |> createFormFromSource "Hello from GitP!"
 
 form.Show()
+
+//@Try this
+let deep6 x y =
+    let deep5 x y =
+        let deep4 x =
+            let deep3 y =
+                System.Random().Next()
+            deep3 x
+        y + deep4 x
+    (deep5 x x) + (deep5 x y)
+
+deep6 1 2
+deep6 2 1
