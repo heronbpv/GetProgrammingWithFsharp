@@ -1,0 +1,9 @@
+Quick check 4.1 answers:
+1 - Give at least two examples of values that can be bound to symbols with let 
+A - Primitive values, like int and float, and objects, like those from the BCL (e.g.: System.Random). More importantly to fsharp, let bindings can be associated with functions.
+
+2 - What’s the difference between let and var ?
+A - A let binding makes for an immutable association, whereas var is mutable.
+
+3 - Is F# a static or dynamic language?
+A - Static.
