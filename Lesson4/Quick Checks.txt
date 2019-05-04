@@ -7,3 +7,13 @@ A - A let binding makes for an immutable association, whereas var is mutable.
 
 3 - Is F# a static or dynamic language?
 A - Static.
+
+Quick check 4.2 answers:
+1 - How do you indicate a new scope in F#?
+A - Through the use of identation.
+
+2 - Can you declare functions within a nested scope?
+A - Yes, all the way through.
+
+3 - Do we normally need to use the return keyword to return from a scope?
+A - Not, unless inside a computation expression. The last value or expression (which will be evaluated to a value before exit), but not binding, of a function is regarded as it's return value automaticaly by the compiler.
