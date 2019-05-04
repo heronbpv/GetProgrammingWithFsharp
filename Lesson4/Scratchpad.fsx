@@ -2,4 +2,4 @@
 let y = 1
 
 let rng = System.Random 1
-let callRngsuz () = rng.Next 100
+let callRngsus () = rng.Next 100
