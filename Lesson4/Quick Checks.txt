@@ -10,7 +10,7 @@ A - Static.
 
 Quick check 4.2 answers:
 1 - How do you indicate a new scope in F#?
-A - Through the use of identation.
+A - Through the use of indentation.
 
 2 - Can you declare functions within a nested scope?
 A - Yes, all the way through.
