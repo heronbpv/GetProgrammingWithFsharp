@@ -4,3 +4,13 @@ A - It's restricted to variable declarations inside methods only, which greatly 
 
 2 - What is the difference between dynamic typing and type inference?
 A - Dynamic typing is a way to bypass the static type checking the compiler does during compilation, allowing the type validation to be done at runtime instead of at compile time. This was done with the intention of allowing better interoperability with more dynamic runtimes. Type inference, on the other hand, is a set os rules that a compiler can use to determine the type os a declaration automatically, based (usually) on previous information known to it. Therefore, while dynamic type throws the static type checking out of the window, type inference eases language usage by allowing some (or most, in F#'s case) of the work of on statically typing to be done by the compiler instead of manually by the programmer.
+
+Quick check 5.2 answers:
+1 - How does F# infer the return type of a function?
+A - By evaluating the type of the final expression in the function.
+
+2 - Can F# infer types from the BCL?
+A - Not automatically. It needs a type annotation, or a reference to an annotated type, to know what type it is.
+
+3 - Does F# allow implicit conversions between numeric types?
+A - No, F# does not allow implicit conversions between numeric types, and between most types in general.
