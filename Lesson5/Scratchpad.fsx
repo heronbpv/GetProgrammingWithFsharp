@@ -10,3 +10,16 @@ let add a b =
     answer
 //Scenario 3 - The call returns a error of type mismatch (in this case, expecting string, but given int).
 //add 1 2
+
+//@Now you try 5.3
+let sayHello(someValue) =
+    let innerFunction(number) = 
+        if number > 10 then "Isaac"
+        elif number > 20 then "Fred"
+        else "Sara"
+    let resultOfInner = 
+        if someValue < 10.0 then innerFunction(5)
+        else innerFunction(15)
+    "Hello " + resultOfInner
+
+let result = sayHello(10.5)
