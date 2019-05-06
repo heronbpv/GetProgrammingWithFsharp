@@ -14,3 +14,8 @@ A - Not automatically. It needs a type annotation, or a reference to an annotate
 
 3 - Does F# allow implicit conversions between numeric types?
 A - No, F# does not allow implicit conversions between numeric types, and between most types in general.
+
+Quick check 5.3 answer:
+1 - Why are type annotations sometimes useful when looking at compiler
+errors?
+A - Because they can be used to narrow down erros caused by clashing types.
