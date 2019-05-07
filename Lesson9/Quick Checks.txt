@@ -4,3 +4,16 @@ A - Using a comma (symbol: ",")
 
 2 - What is the main distinction between tuples in F# and C# 6?
 A - Language support, mostly.
+
+Quick check 9.2 answers:
+1 - What is the type signature of nameAndAge in listing 9.4? Why?
+A - The type signature is (string * string) * int, indicating a nested tuple of two strings tupled with an int.
+
+2 - How many elements are in nameAndAge ?
+A - 2, a tuple of two strings, and an int.
+
+3 - What is the purpose of the wildcard symbol?
+A - It's used to discard the value in question, during deconstruction.
+
+4 - How many wildcards can you use when deconstructing a tuple?
+A - As many as you like, including enough to discard the whole tuple.

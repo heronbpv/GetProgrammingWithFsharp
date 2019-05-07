@@ -12,3 +12,14 @@ let firstIsMary, secondIsAsteroids, thirdIs2500 = test
 
 let testNull = parse(null)
 let firstIsEmpty, secondAlso, thirdIsZero = testNull
+
+//Nested tuples
+let nameAndAge = ("Joe", "Bloggs"), 28
+let name, age = nameAndAge
+let (forename, surname), theAge = nameAndAge
+let x = nameAndAge.GetType()
+
+//Wildcards
+let nameAndAge2 = "Jane", "Smith", 25
+let forename2, surname2, _ = nameAndAge2
+let _, _, _ = nameAndAge2 //You can discard the whole tuple if you wish. Not that it makes any sense doing it this way, but it's possible.
