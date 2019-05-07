@@ -24,3 +24,16 @@ let calculateRemainingPetrol(currentPetrol, distance) =
 
 let hasPetrol = calculateRemainingPetrol(100, 50) > 0
 let hasNoPetrol = calculateRemainingPetrol(50, 50) 
+
+//@8.4.3
+let distanceToGas = getDistance("Gas")
+let gasTest1 = calculateRemainingPetrol(25, distanceToGas)
+let gasTest2 = calculateRemainingPetrol(5, distanceToGas)
+
+let driveTo (petrol:int, destination:string) :int = 
+    let distance = getDistance(destination)
+    calculateRemainingPetrol(petrol, distance)
+
+let gasTest3 = driveTo(25, "Gas")
+let gasTest4 = driveTo(5, "Gas")
+let gasTest5 = driveTo(100, null)
