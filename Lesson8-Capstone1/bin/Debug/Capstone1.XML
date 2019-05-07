@@ -2,9 +2,19 @@
 <doc>
 <assembly><name>Capstone1</name></assembly>
 <members>
-<member name="M:Car.driveTo``2(``0,``1)">
+<member name="M:Car.driveTo(System.Int32,System.String)">
 <summary>
  Drives to a given destination given a starting amount of petrol
+</summary>
+</member>
+<member name="M:Car.calculateRemainingPetrol(System.Int32,System.Int32)">
+<summary>
+Calculates the remaining petrol, after a certain distance has been travelled. Throws an exception in case the remaining petrol is less the distance to travel.
+</summary>
+</member>
+<member name="M:Car.getDistance(System.String)">
+<summary>
+Returns the distance to a given destination, or throws an exception in case the destination is unknown.
 </summary>
 </member>
 </members>
