@@ -7,3 +7,13 @@ A - The equals symbol is used to represent only the assign to variable operation
 
 3 - What keyword do you use in F# to update the value of a mutable object?
 A - The left arrow operator (symbol: "<-").
+
+Quick Check 6.2 answers:
+1 - How do you handle changes in state when working with immutable data?
+A - By explicitly stating the dependence upon said state in a function, then returning a new, modified state at each function call.
+
+2 - What is a pure function?
+A - A function that has no side effects in its definition.
+
+3 - What impact does working with immutable data have with multithreading code?
+A - Since the data is immutable, concurrent threads can't try to modify it at the same time, avoiding race conditions and locks on resources.
