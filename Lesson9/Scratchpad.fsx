@@ -17,9 +17,15 @@ let firstIsEmpty, secondAlso, thirdIsZero = testNull
 let nameAndAge = ("Joe", "Bloggs"), 28
 let name, age = nameAndAge
 let (forename, surname), theAge = nameAndAge
-let x = nameAndAge.GetType()
+let typeOfNameAndAge = nameAndAge.GetType()
 
 //Wildcards
 let nameAndAge2 = "Jane", "Smith", 25
 let forename2, surname2, _ = nameAndAge2
 let _, _, _ = nameAndAge2 //You can discard the whole tuple if you wish. Not that it makes any sense doing it this way, but it's possible.
+
+//Mapping out out parameters
+open System
+let isSuccessful, convertedValue = Int32.TryParse("15")
+
+

@@ -17,3 +17,10 @@ A - It's used to discard the value in question, during deconstruction.
 
 4 - How many wildcards can you use when deconstructing a tuple?
 A - As many as you like, including enough to discard the whole tuple.
+
+Quick check 9.3 answers:
+1 - What’s generally considered the maximum size you should use for a tuple?
+A - Three.
+
+2 - When should you be cautious of using tuples?
+A - When exposing to public APIs, as it can get confusing to the caller since the elements names aren't avaiable on the type signature for them.
