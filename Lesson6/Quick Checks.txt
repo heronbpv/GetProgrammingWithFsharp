@@ -1,0 +1,9 @@
+Quick Check 6.1 answers:
+1 - What keyword do you use to mark a value as mutable in F#?
+A - The mutable keyword.
+
+2 - What is the difference between = in C# and F#?
+A - The equals symbol is used to represent only the assign to variable operation in C#, whereas it describes the equality and binding operations in F#.
+
+3 - What keyword do you use in F# to update the value of a mutable object?
+A - The left arrow operator (symbol: "<-").
