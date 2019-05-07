@@ -23,11 +23,13 @@ form2.Show
 
 //@Now you try 6.3.2
 let drive(petrol, distance) = 
-    if distance = "far" then petrol / 2.0
-    elif distance = "medium" then petrol - 10.0
-    else petrol - 1.0
+    if distance > 50 then petrol / 2.0
+    elif distance > 25 && distance <= 50 then petrol - 10.0
+    elif distance > 1 && distance <= 25 then petrol - 1.0
+    else petrol
 
 let petrol = 100.0
-let firstState = drive(petrol, "far")
-let secondState = drive(firstState, "medium")
-let finalState = drive(secondState, "short")
+let firstState = drive(petrol, 51)
+let secondState = drive(firstState, 26)
+let thirdState = drive(secondState, 15)
+let finalState = drive(thirdState, 0)
