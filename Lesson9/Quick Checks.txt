@@ -1,0 +1,6 @@
+Quick check 9.1 answers:
+1 - How would you separate values in a tuple in F#?
+A - Using a comma (symbol: ",")
+
+2 - What is the main distinction between tuples in F# and C# 6?
+A - Language support, mostly.
