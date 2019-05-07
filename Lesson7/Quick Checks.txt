@@ -7,3 +7,10 @@ A - Always.
 
 3 - What is the smallest unit of expression in C#?
 A - A method.
+
+Quick check 7.2 answers:
+1 - What is the difference between a function returning unit and a void method?
+A - A function returning unit returns the value unit, which is a type in the F# type system. A void method is an special case in C#, that does not return anything.
+
+2 - What is the purpose of the ignore function in F#?
+A - To discard the value passed to it and return unit, therefore silently avoiding the warning that comes when the value returned by an expression is not used.
