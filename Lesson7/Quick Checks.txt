@@ -14,3 +14,7 @@ A - A function returning unit returns the value unit, which is a type in the F# 
 
 2 - What is the purpose of the ignore function in F#?
 A - To discard the value passed to it and return unit, therefore silently avoiding the warning that comes when the value returned by an expression is not used.
+
+Quick check 7.3 answers:
+1 - Is it possible to work with statements rather than expressions in F#?
+A - Yes, but then you lose some of the compiler guarantees that you'd get otherwise.
