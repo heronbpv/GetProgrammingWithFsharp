@@ -1,0 +1,8 @@
+D:\Programacao\GetProgrammingWithFsharp\Lesson8-Capstone1\bin\Debug\Capstone1.exe.config
+D:\Programacao\GetProgrammingWithFsharp\Lesson8-Capstone1\bin\Debug\Capstone1.XML
+D:\Programacao\GetProgrammingWithFsharp\Lesson8-Capstone1\bin\Debug\Capstone1.exe
+D:\Programacao\GetProgrammingWithFsharp\Lesson8-Capstone1\bin\Debug\Capstone1.pdb
+D:\Programacao\GetProgrammingWithFsharp\Lesson8-Capstone1\bin\Debug\FSharp.Core.dll
+D:\Programacao\GetProgrammingWithFsharp\Lesson8-Capstone1\bin\Debug\FSharp.Core.xml
+D:\Programacao\GetProgrammingWithFsharp\Lesson8-Capstone1\obj\Debug\Capstone1.exe
+D:\Programacao\GetProgrammingWithFsharp\Lesson8-Capstone1\obj\Debug\Capstone1.pdb
