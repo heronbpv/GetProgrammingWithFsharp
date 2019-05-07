@@ -1,0 +1,9 @@
+Quick check 7.1 answers:
+1 - How often do expressions return a value?
+A - Always. An expression must evaluate to a final, single value which is it's result.
+
+2 - How often do statements use side effects?
+A - Always.
+
+3 - What is the smallest unit of expression in C#?
+A - A method.
