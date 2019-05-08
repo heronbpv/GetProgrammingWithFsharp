@@ -11,3 +11,10 @@ A - Top to bottom.
 
 2 - When can you omit a module declaration in an F# file?
 A - When the file is the last one in the project definition.
+
+Quick Check 12.3 answers:
+1 - What is the AutoOpen attribute for?
+A - To make the modules inside a namespace, which are decorated with this attribute, be automatically opened as well.
+
+2 - What is the default access modifier for values in modules?
+A - Public.
