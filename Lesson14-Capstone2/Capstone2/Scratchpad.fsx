@@ -50,5 +50,24 @@ fileSystemAudit bobAccount "Testing audit on bobaccount with file"
 consoleAudit bobAccount "Testing audit on bobaccount with console"
 
 //Orquestration
-let auditAs (operationName:string) (audit:Account-> string-> unit) (operation:decimal -> Account -> Account) (amount:decimal) (account:Account) : Account = 
-    bobAccount
+let auditAs operationName audit operation amount account = 
+    audit account ("Orchestrator starting operation '" + operationName + " " + amount.ToString() + " bucks' on account.")
+    let currentBalance = account.Balance
+    let result = operation amount account
+    audit account ("Orchestrator attempted operation '" + operationName + " " + amount.ToString() + " bucks' on account.")
+    if currentBalance <> result.Balance then 
+        audit account ("Operation successful. New balance '" + result.Balance.ToString() + " bucks'.")
+    else 
+        audit account ("Operation failed. Transaction reversed.")
+    result
+
+let withdrawWithConsoleAudit = auditAs "withdraw" consoleAudit withdraw
+let depositWithConsoleAudit = auditAs "deposit" consoleAudit deposit
+
+bobAccount
+|> depositWithConsoleAudit 100M
+|> withdrawWithConsoleAudit 50M
+|> withdrawWithConsoleAudit 150M
+|> withdrawWithConsoleAudit 75M
+|> depositWithConsoleAudit 80M
+|> withdrawWithConsoleAudit 60M
