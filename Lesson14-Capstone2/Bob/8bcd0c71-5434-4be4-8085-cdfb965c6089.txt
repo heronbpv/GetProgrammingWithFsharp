@@ -1,0 +1,19 @@
+Testing audit on bobaccount with file
+Orchestrator starting operation 'deposit 100 bucks' on account. Current balance: '100 bucks'.
+Orchestrator attempted operation...
+... Operation successful. New balance '200 bucks'.
+Orchestrator starting operation 'withdraw 50 bucks' on account. Current balance: '200 bucks'.
+Orchestrator attempted operation...
+... Operation successful. New balance '150 bucks'.
+Orchestrator starting operation 'withdraw 150 bucks' on account. Current balance: '150 bucks'.
+Orchestrator attempted operation...
+... Operation successful. New balance '0 bucks'.
+Orchestrator starting operation 'withdraw 75 bucks' on account. Current balance: '0 bucks'.
+Orchestrator attempted operation...
+... Operation failed. Transaction aborted. Balance remains: '0 bucks'.
+Orchestrator starting operation 'deposit 80 bucks' on account. Current balance: '0 bucks'.
+Orchestrator attempted operation...
+... Operation successful. New balance '80 bucks'.
+Orchestrator starting operation 'withdraw 60 bucks' on account. Current balance: '80 bucks'.
+Orchestrator attempted operation...
+... Operation successful. New balance '20 bucks'.

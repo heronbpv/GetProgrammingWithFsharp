@@ -33,7 +33,7 @@ let fileSystemAudit account message =
     let path = Path.Combine (Directory.GetParent(__SOURCE_DIRECTORY__).FullName, account.Owner.Name)
     let dir = Directory.CreateDirectory (path)
     let path = Path.Combine (dir.FullName, (account.Id.ToString() + ".txt")) //Works, because of shadowing. Careful!
-    File.WriteAllText(path, message)
+    File.AppendAllText(path, (message + "\n"))
 let consoleAudit account message = 
     printfn "Account %s: %s" (account.Id.ToString()) message
 
@@ -64,6 +64,9 @@ let auditAs operationName audit operation amount account =
 let withdrawWithConsoleAudit = auditAs "withdraw" consoleAudit withdraw
 let depositWithConsoleAudit = auditAs "deposit" consoleAudit deposit
 
+let withdrawWithFileAudit = auditAs "withdraw" fileSystemAudit withdraw
+let depositWithFileAudit = auditAs "deposit" fileSystemAudit deposit
+
 bobAccount
 |> depositWithConsoleAudit 100M
 |> withdrawWithConsoleAudit 50M
@@ -71,3 +74,11 @@ bobAccount
 |> withdrawWithConsoleAudit 75M
 |> depositWithConsoleAudit 80M
 |> withdrawWithConsoleAudit 60M
+
+bobAccount
+|> depositWithFileAudit 100M
+|> withdrawWithFileAudit 50M
+|> withdrawWithFileAudit 150M
+|> withdrawWithFileAudit 75M
+|> depositWithFileAudit 80M
+|> withdrawWithFileAudit 60M
