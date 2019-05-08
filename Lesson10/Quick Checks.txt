@@ -14,3 +14,10 @@ Structural equality, on the other hand, refers to the equality of the value of t
 	let b = 45
 	a = b
 Which will return true, since the values are the same (both being equal integers). For more complex data structures, such as records, for this to hold true, the individual components must have the same values, so their entire contents are equal.
+
+Quick check 10.2 answers:
+1 - At runtime, what do records compile into?
+A - Classes.
+
+2 - What is the default type of equality checking for records?
+A - Structural, deep.
