@@ -49,7 +49,7 @@ printfn "%s" (__SOURCE_DIRECTORY__ + Path.DirectorySeparatorChar.ToString() +
 fileSystemAudit bobAccount "Testing audit on bobaccount with file"
 consoleAudit bobAccount "Testing audit on bobaccount with console"
 
-//Orquestration
+//Orchestration
 let auditAs operationName audit operation amount account = 
     audit account ("Orchestrator starting operation '" + operationName + " " + amount.ToString() + " bucks' on account. Current balance: '" + account.Balance.ToString() + " bucks'.")
     let currentBalance = account.Balance
@@ -76,6 +76,14 @@ bobAccount
 |> withdrawWithConsoleAudit 60M
 
 bobAccount
+|> depositWithFileAudit 100M
+|> withdrawWithFileAudit 50M
+|> withdrawWithFileAudit 150M
+|> withdrawWithFileAudit 75M
+|> depositWithFileAudit 80M
+|> withdrawWithFileAudit 60M
+
+janeAccount
 |> depositWithFileAudit 100M
 |> withdrawWithFileAudit 50M
 |> withdrawWithFileAudit 150M
