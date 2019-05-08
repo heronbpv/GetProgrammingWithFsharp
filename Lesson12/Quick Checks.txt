@@ -1,0 +1,6 @@
+Quick check 12.1 answers:
+1 - Can you store values in namespaces?
+A - No, only type declarations.
+
+2 - Can you store types in modules?
+A - Yes.
