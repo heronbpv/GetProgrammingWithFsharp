@@ -1,3 +1,7 @@
-Quick check 11.1 answers:
+Quick check 11.1 answer:
 1 - What’s the difference between a curried function and a tupled function?
 A - A tupled function expects that all of it's parameters will be supplied at the call site, while a curried function can receive only part of it's arguments, and will act accordingly, return a final value once all are supplied, or a function that expects the remaining if some of the parameters are missing.
+
+Quick check 11.2 answer:
+1 - Name at least two differences between C# methods and F# let -bound functions.
+A - C# methods can behave as statements or expressions, while F# letbound functions  always behaves as expressions. Also, C# methods allow method overloading, while F# does not support such things (at least not the way C# does), as it's considered bad form.

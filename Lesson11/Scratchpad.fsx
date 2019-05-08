@@ -1,3 +1,4 @@
+//@Now you try 11.2
 open System
 open System.IO
 let writeToFile (date:DateTime) fileName text = 
