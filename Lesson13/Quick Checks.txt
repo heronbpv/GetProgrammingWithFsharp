@@ -14,3 +14,7 @@ A - Yes.
 
 2 - How can you easily identify higher-order function arguments in VS?
 A - By noticing the color of the argument. It's gonna be the same as the color of the function name. Assuming, of course, that the Visual F# Power Tools plugin for Visual Studio 2015 is installed.
+
+Quick check 13.3 answer:
+1 - What’s the key difference between passing dependencies in F# and C#?
+A - F# is more lightweight thanks to it's language support for e.g. higher order functions.
