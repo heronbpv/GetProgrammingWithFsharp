@@ -1,0 +1,3 @@
+Quick check 11.1 answers:
+1 - What’s the difference between a curried function and a tupled function?
+A - A tupled function expects that all of it's parameters will be supplied at the call site, while a curried function can receive only part of it's arguments, and will act accordingly, return a final value once all are supplied, or a function that expects the remaining if some of the parameters are missing.
