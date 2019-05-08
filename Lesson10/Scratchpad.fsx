@@ -24,7 +24,7 @@ let city = customer.Address.City
 let town = customer.Address.Town
 let street = customer.Address.Street
 
-//Now you try 10.1.2
+//@Now you try 10.1.2
 type Car = 
     { Model : string
       Manufacturer : string
@@ -39,3 +39,16 @@ let car =
       EngineSize = "medium"
       Color = "blue"
       NumberOfDoors = 4 }
+
+//@Quick check 10.1
+let a = obj()
+let b = a
+a = b
+let c = obj()
+a = c
+b = c
+c = c
+a.Equals(b)
+b.Equals(a)
+c.Equals(a)
+c.Equals(c)

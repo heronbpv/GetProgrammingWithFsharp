@@ -1,0 +1,16 @@
+Quick check 10.1 answers:
+1 - What is the default accessibility modifier for fields on records?
+A - Public.
+
+2 - What is the difference between referential and structural equality?
+A - Referential equality pertains to memory address, so two things have referential equality when they point to the same address in memory space. So, in case of objects, if two variables point to the same instance of a given object, a referential comparison should return true. E.g.:
+	let a = obj()
+	let b = a
+	let c = obj()
+In this case, both a and b point to the same instance of object, and therefore a referential comparison between them will return true. But, if compared to c, which points to a new instance of object, the result will be false.
+
+Structural equality, on the other hand, refers to the equality of the value of these things, so two of them have structural equality when the values they are composed of are themselves equal. This is easier to observe with primitive types in the .NET echosystem, such as:
+	let a = 45
+	let b = 45
+	a = b
+Which will return true, since the values are the same (both being equal integers). For more complex data structures, such as records, for this to hold true, the individual components must have the same values, so their entire contents are equal.
