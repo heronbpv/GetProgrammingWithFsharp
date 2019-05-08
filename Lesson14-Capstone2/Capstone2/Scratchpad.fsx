@@ -26,3 +26,9 @@ let withdraw amount account =
 //Testing the functions
 janeAccount |> deposit 50M |> withdraw 25M |> deposit 10M
 bobAccount |> withdraw 100M |> withdraw 10M |> deposit 25M |> withdraw 175M
+
+//Audit functions
+let fileSystemAudit account message = 
+    ""
+let consoleAudit account message = 
+    ""
