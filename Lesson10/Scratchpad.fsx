@@ -52,3 +52,25 @@ a.Equals(b)
 b.Equals(a)
 c.Equals(a)
 c.Equals(c)
+
+//@Now you try 10.2.3
+let updatedCustomer = 
+    { customer with Age = 31
+                    EmailAddress = "joe@bloggs.co.uk" }
+let copiedCustomer = 
+    { customer with Age = 31
+                    EmailAddress = "joe@bloggs.co.uk" }
+
+let eqOperator = copiedCustomer = updatedCustomer
+let eqMethodCall = updatedCustomer.Equals(copiedCustomer) //These two return true; the comparison is structural, so it fits.
+let sysobRefEq = System.Object.ReferenceEquals(updatedCustomer, copiedCustomer)//This returns false, since they don't point to the same object in memory.
+
+let alterAge customer =
+    let random = //Refer to https://www.google.com/search?q=.net%20generating%20random%20number%20between%20interval
+        let randomizer = new System.Random()
+        randomizer.Next(18, 45)
+    printfn "Altering age for customer %s; from %i to %i" customer.Forename customer.Age random
+    {customer with Age = random}
+
+let newCustomer1 = alterAge customer
+let newCustomer2 = alterAge updatedCustomer
