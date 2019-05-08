@@ -1,0 +1,9 @@
+Quick check 13.1 answers:
+1 - Name one difference between nominal and structural types.
+A - Nominal types cannot be implicitly exchanged for one another even if they have the same structure, unlike structural types.
+
+2 - How do we pass logic between or across code in the OO world?
+A - Through interfaces.
+
+3 - How do we pass logic between or across code in the FP world?
+A - Through functions.
