@@ -48,3 +48,7 @@ printfn "%s" (__SOURCE_DIRECTORY__ + Path.DirectorySeparatorChar.ToString() +
 
 fileSystemAudit bobAccount "Testing audit on bobaccount with file"
 consoleAudit bobAccount "Testing audit on bobaccount with console"
+
+//Orquestration
+let auditAs (operationName:string) (audit:Account-> string-> unit) (operation:decimal -> Account -> Account) (amount:decimal) (account:Account) : Account = 
+    bobAccount
