@@ -74,3 +74,15 @@ let alterAge customer =
 
 let newCustomer1 = alterAge customer
 let newCustomer2 = alterAge updatedCustomer
+
+let w = //Generated through code generation
+    { Forename = "autocomplete"
+      Surname = Unchecked.defaultof<_>
+      Age = Unchecked.defaultof<_>
+      Address = Unchecked.defaultof<_>
+      EmailAddress = Unchecked.defaultof<_> }
+
+//Shadowing
+let myHome = {Street = "1"; Town = "2"; City = "3"}
+let myHome = { myHome with City = "4" }
+let myHome = { myHome with City = "5" } //Despite the warning, this compiles just fine. Probably the litting?

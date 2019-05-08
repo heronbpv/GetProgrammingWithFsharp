@@ -21,3 +21,11 @@ A - Classes.
 
 2 - What is the default type of equality checking for records?
 A - Structural, deep.
+
+Quick check 10.3 answers:
+1 - What is shadowing?
+A - It's the ability to reuse an existing named binding for a new value. So, from the point of the reuse to onwards, the compiler will use the new value bound, instead of the old.
+
+2 - When should you use records?
+A - Whenever you want a class, but with structural equality by default. E.g. data modeling, DTOs, etc.
+Refer to the answer by the author on page 123, in the footnote.
