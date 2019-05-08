@@ -1,0 +1,8 @@
+D:\Programacao\GetProgrammingWithFsharp\Lesson12\Lesson12ConsoleApp\bin\Debug\Lesson12ConsoleApp.exe.config
+D:\Programacao\GetProgrammingWithFsharp\Lesson12\Lesson12ConsoleApp\bin\Debug\Lesson12ConsoleApp.XML
+D:\Programacao\GetProgrammingWithFsharp\Lesson12\Lesson12ConsoleApp\bin\Debug\Lesson12ConsoleApp.exe
+D:\Programacao\GetProgrammingWithFsharp\Lesson12\Lesson12ConsoleApp\bin\Debug\Lesson12ConsoleApp.pdb
+D:\Programacao\GetProgrammingWithFsharp\Lesson12\Lesson12ConsoleApp\bin\Debug\FSharp.Core.dll
+D:\Programacao\GetProgrammingWithFsharp\Lesson12\Lesson12ConsoleApp\bin\Debug\FSharp.Core.xml
+D:\Programacao\GetProgrammingWithFsharp\Lesson12\Lesson12ConsoleApp\obj\Debug\Lesson12ConsoleApp.exe
+D:\Programacao\GetProgrammingWithFsharp\Lesson12\Lesson12ConsoleApp\obj\Debug\Lesson12ConsoleApp.pdb
