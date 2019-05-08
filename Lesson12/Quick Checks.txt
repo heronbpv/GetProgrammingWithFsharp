@@ -4,3 +4,10 @@ A - No, only type declarations.
 
 2 - Can you store types in modules?
 A - Yes.
+
+Quick check 12.2 answers:
+1 - In what order are files read for dependencies in F#?
+A - Top to bottom.
+
+2 - When can you omit a module declaration in an F# file?
+A - When the file is the last one in the project definition.
