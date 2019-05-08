@@ -12,3 +12,10 @@ A - The last one.
 
 2 - Can you use C# or VB .NET methods with the pipeline?
 A - Yes, you can, so long as they have only one argument.
+
+Quick check 11.4 answers:
+1 - What operator do you use for composing two functions together?
+A - Usually, the right composition operator (symbol: ">>"; read as "compose with" or "compose right" or "compose right with").
+
+2 - What rule do you need to adhere to in order to compose two functions together?
+A - The output of the preceding function must have the same type as the input of the succeeding function.
