@@ -5,3 +5,10 @@ A - A tupled function expects that all of it's parameters will be supplied at th
 Quick check 11.2 answer:
 1 - Name at least two differences between C# methods and F# let -bound functions.
 A - C# methods can behave as statements or expressions, while F# letbound functions  always behaves as expressions. Also, C# methods allow method overloading, while F# does not support such things (at least not the way C# does), as it's considered bad form.
+
+Quick check 11.3 answers:
+1 - Which argument to a function is one that can be flipped over a pipeline?
+A - The last one.
+
+2 - Can you use C# or VB .NET methods with the pipeline?
+A - Yes, you can, so long as they have only one argument.

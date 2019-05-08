@@ -19,7 +19,7 @@ writeToTodayHelloWorld "The quick brown fox jumped over the lazy dog"
 writeToFile DateTime.UtcNow.Date null null //DateTime can't be null. Sweet!
 
 //@Now you try 11.2.2
-//Code ported from the scratchpad from lesson6, now you try 6.3.1, then adapted to not use mutability and support curry.
+//Code ported from the scratchpad from lesson6, now you try 6.3.1, then adapted to not use mutability and support currying.
 let drive distance petrol = 
     if distance = "far" then petrol / 2.0
     elif distance = "medium" then petrol - 10.0
