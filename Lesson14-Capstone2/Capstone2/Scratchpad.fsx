@@ -28,7 +28,23 @@ janeAccount |> deposit 50M |> withdraw 25M |> deposit 10M
 bobAccount |> withdraw 100M |> withdraw 10M |> deposit 25M |> withdraw 175M
 
 //Audit functions
+open System.IO
 let fileSystemAudit account message = 
-    ""
+    let path = Path.Combine (Directory.GetParent(__SOURCE_DIRECTORY__).FullName, account.Owner.Name)
+    let dir = Directory.CreateDirectory (path)
+    let path = Path.Combine (dir.FullName, (account.Id.ToString() + ".txt")) //Works, because of shadowing. Careful!
+    File.WriteAllText(path, message)
 let consoleAudit account message = 
-    ""
+    printfn "Account %s: %s" (account.Id.ToString()) message
+
+printfn "%s" (__SOURCE_DIRECTORY__ + Path.DirectorySeparatorChar.ToString() +
+                        ".." +
+                        Path.DirectorySeparatorChar.ToString() +
+                        "capstoneAudit" +
+                        Path.DirectorySeparatorChar.ToString() +
+                        bobAccount.Owner.Name +
+                        Path.DirectorySeparatorChar.ToString() +
+                        bobAccount.Id.ToString() + ".txt")
+
+fileSystemAudit bobAccount "Testing audit on bobaccount with file"
+consoleAudit bobAccount "Testing audit on bobaccount with console"
