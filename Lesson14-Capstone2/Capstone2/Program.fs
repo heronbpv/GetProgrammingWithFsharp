@@ -23,7 +23,22 @@ let depositWithConsoleAudit = auditAs "deposit" consoleAudit deposit
 let withdrawWithFileAudit = auditAs "withdraw" fileSystemAudit withdraw
 let depositWithFileAudit = auditAs "deposit" fileSystemAudit deposit
 
+open System 
+let greeting () = 
+    Console.WriteLine("Welcome to your banking system. Please, identify yourself.")
+    Console.WriteLine("Name: ")
+    let name = Console.ReadLine()
+    Console.WriteLine("Age: ")
+    let age = int(Console.ReadLine())
+    Console.WriteLine("Now, register the initial balance for your account.")
+    Console.WriteLine("Bucks: ")
+    let balance = decimal(Console.ReadLine())
+
+    let user = {Id = Guid.Empty; Age = age; Name = name}
+    {Id = Guid.Empty; Balance = balance; Owner = user}
+
 [<EntryPoint>]
-let main argv = 
-    printfn "%A" argv
+let main _ =    
+    
+
     0 // return an integer exit code
