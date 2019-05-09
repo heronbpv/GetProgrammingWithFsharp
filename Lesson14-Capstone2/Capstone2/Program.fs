@@ -6,23 +6,6 @@ open Capstone2.Domain
 open Capstone2.Operations
 open Capstone2.Auditing
 
-let auditAs operationName audit operation amount account = 
-    audit account ("Orchestrator starting operation '" + operationName + " " + amount.ToString() + " bucks' on account. Current balance: '" + account.Balance.ToString() + " bucks'.")
-    let currentBalance = account.Balance
-    let result = operation amount account
-    audit account ("Orchestrator attempted operation...")
-    if currentBalance <> result.Balance then 
-        audit account ("... Operation successful. New balance '" + result.Balance.ToString() + " bucks'.")
-    else 
-        audit account ("... Operation failed. Transaction aborted. Balance remains: '" + result.Balance.ToString() + " bucks'.")
-    result
-
-let withdrawWithConsoleAudit = auditAs "withdraw" consoleAudit withdraw
-let depositWithConsoleAudit = auditAs "deposit" consoleAudit deposit
-
-let withdrawWithFileAudit = auditAs "withdraw" fileSystemAudit withdraw
-let depositWithFileAudit = auditAs "deposit" fileSystemAudit deposit
-
 open System 
 ///Greets the user and sets up it's account and customer registration
 let greeting () = 

@@ -54,6 +54,7 @@
     <Compile Include="Program.fs" />
     <None Include="App.config" />
     <None Include="Scratchpad.fsx" />
+    <None Include="TestScript.fsx" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
