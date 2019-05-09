@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Capstone2</name></assembly>
+<members>
+<member name="M:Capstone2.Auditing.Auditing.consoleAudit(Capstone2.Domain.Domain.Account,System.String)">
+<summary>
+Prints the audit message to the default console output.
+</summary>
+</member>
+<member name="M:Capstone2.Auditing.Auditing.fileSystemAudit(Capstone2.Domain.Domain.Account,System.String)">
+<summary>
+Registers the audinting message in a file. The directory will be one level above the executable&apos;s current location in the filesystem.
+The directory name is the name of the owner of the account.
+</summary>
+</member>
+<member name="T:Capstone2.Auditing.Auditing">
+<summary>
+Audit functions
+</summary>
+</member>
+<member name="T:Capstone2.Domain.Domain.Account">
+<summary>
+The account associated with a customer.
+</summary>
+</member>
+<member name="T:Capstone2.Domain.Domain.Customer">
+<summary>
+A simple customer.
+</summary>
+</member>
+<member name="T:Capstone2.Domain.Domain">
+<summary>
+Type definitions that model the problem.
+</summary>
+</member>
+<member name="M:Capstone2.Operations.Operations.withdraw(System.Decimal,Capstone2.Domain.Domain.Account)">
+<summary>
+Withdraws a certain amount from a given Account.
+</summary>
+</member>
+<member name="M:Capstone2.Operations.Operations.deposit(System.Decimal,Capstone2.Domain.Domain.Account)">
+<summary>
+Deposits a certain amount into an Account.
+</summary>
+</member>
+<member name="T:Capstone2.Operations.Operations">
+<summary>
+Functions that operate on the types defined in the domain module.
+</summary>
+</member>
+</members>
+</doc>
