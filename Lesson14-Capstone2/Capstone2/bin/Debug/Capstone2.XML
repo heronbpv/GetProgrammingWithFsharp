@@ -48,5 +48,10 @@ Deposits a certain amount into an Account.
 Functions that operate on the types defined in the domain module.
 </summary>
 </member>
+<member name="M:Program.greeting">
+<summary>
+Greets the user and sets up it&apos;s account and customer registration
+</summary>
+</member>
 </members>
 </doc>
