@@ -39,6 +39,23 @@ let greeting () =
 
 [<EntryPoint>]
 let main _ =    
-    
+    let mutable account = greeting()
+    while true do
+        Console.WriteLine("Greetings, {0}. What would you like to do with your account?", account.Owner.Name)
+        Console.WriteLine("Options (inform the number to the desired action)")
+        Console.WriteLine("1)Withdraw")
+        Console.WriteLine("2)Deposit")
+        Console.WriteLine("3)Exit")
+        let action = Console.ReadLine()
 
-    0 // return an integer exit code
+        if action = "3" then Environment.Exit 0
+
+        Console.WriteLine("Action: {0}. How much?", action)
+        Console.WriteLine("Bucks: ")
+        let amount = decimal(Console.ReadLine())
+
+        account <-
+            if action = "1" then account |> withdrawWithConsoleAudit amount
+            elif action = "2" then account |> depositWithConsoleAudit amount
+            else account
+    0
