@@ -53,29 +53,3 @@ results
 |> List.countBy (fun game -> game.AwayTeam) 
 |> List.sortByDescending (fun result -> result |> snd) //This is more ad-hoc, but less clear to the above pipeline.
 
-//Another way, more imperative, to do the above, following the book's example:
-open System.Collections.Generic
-type TeamSummary = {Name:string; mutable AwayWins:int}
-let summary = ResizeArray()
-
-for result in results do
-    if result.AwayGoals > result.HomeGoals then
-        printfn "%A" result
-        let mutable found = false
-        for entry in summary do
-            printfn "summary"
-            if entry.Name = result.AwayTeam then
-                found <- true
-                entry.AwayWins <- entry.AwayWins + 1
-            if not found then
-                printfn "%s" result.AwayTeam
-                summary.Add {Name = result.AwayTeam; AwayWins = 1}
-            //Both if above evaluate to unit, thus ommiting the else clause is accepted.
-let comparer = 
-    { new IComparer<TeamSummary> with
-          member this.Compare(x, y) = 
-              if x.AwayWins > y.AwayWins then -1
-              elif x.AwayWins < y.AwayWins then 1
-              else 0 }
-summary.Sort(comparer)
-summary
