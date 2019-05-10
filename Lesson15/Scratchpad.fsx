@@ -34,8 +34,8 @@ let hasWonAwayGame result =
 let listTeamsWhoWonAwayGames games = 
     List.filter hasWonAwayGame games
 
-///A function to aggregate the results of a collection of FootballResults by the away team's name.
-let listGamesByAwayTeam games = 
+///A function to aggregate the results of a collection of FootballResults by the away team's name and it's number of victories.
+let aggregateGamesByAwayTeamVictories games = 
     List.countBy (fun game -> game.AwayTeam) games
 
 ///Sorts a list of game result aggregates by the second element, which corresponds to the number of games won by the away team.
@@ -44,7 +44,7 @@ let sortAggregateByAwayTeamWonGamesDescending results =
 
 results
 |> listTeamsWhoWonAwayGames
-|> listGamesByAwayTeam
+|> aggregateGamesByAwayTeamVictories
 |> sortAggregateByAwayTeamWonGamesDescending
 
 //The above is the equivalent to the following, I believe:
