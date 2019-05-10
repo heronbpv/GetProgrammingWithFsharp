@@ -23,7 +23,7 @@ let results =
       create ("Ronaldo City", 1) ("Bale Town", 2) ]
 
 //How to define that a team won an away game?
-///This filter returns true if the away team has scored more goals in the match than the home team.
+///This filter returns true if the away team has scored more goals in the match than the home team. False otherwise.
 let hasWonAwayGame (result:FootballResult) = 
     if result.AwayGoals > result.HomeGoals then 
         true
@@ -34,6 +34,10 @@ let hasWonAwayGame (result:FootballResult) =
 let listTeamsWhoWonAwayGames (games:FootballResult list) = 
     List.filter hasWonAwayGame games
 
+///A function to aggregate the results of a collection of FootballResults
+let listTeams (games:FootballResult list) = 
+    List.groupBy (fun game -> game.AwayTeam) games
 
 results
 |> listTeamsWhoWonAwayGames
+|> listTeams
