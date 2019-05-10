@@ -20,5 +20,5 @@ let results =
       create ("Bale Town", 3) ("Ronaldo City", 1)
       create ("Bale Town", 2) ("Messiville", 1)
       create ("Ronaldo City", 4) ("Messiville", 2)
-      create ("Ronaldo City", 2) ("Bale Town", 2) ]
+      create ("Ronaldo City", 1) ("Bale Town", 2) ]
 
