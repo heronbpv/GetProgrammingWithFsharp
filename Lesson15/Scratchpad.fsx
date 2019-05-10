@@ -1,7 +1,7 @@
 //@Now you try 15.1
 //Which teams won the most away games in this season?
 //Data structure and creation function
-type FotballResult = 
+type FootballResult = //Represents the result of a game
     { HomeTeam : string
       AwayTeam : string
       HomeGoals : int
@@ -22,3 +22,18 @@ let results =
       create ("Ronaldo City", 4) ("Messiville", 2)
       create ("Ronaldo City", 1) ("Bale Town", 2) ]
 
+//How to define that a team won an away game?
+///This filter returns true if the away team has scored more goals in the match than the home team.
+let hasWonAwayGame (result:FootballResult) = 
+    if result.AwayGoals > result.HomeGoals then 
+        true
+    else 
+        false
+
+///A function to transform a list of games into another, that contains only games won by the away team.
+let listTeamsWhoWonAwayGames (games:FootballResult list) = 
+    List.filter hasWonAwayGame games
+
+
+results
+|> listTeamsWhoWonAwayGames
