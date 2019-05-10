@@ -34,10 +34,10 @@ let hasWonAwayGame (result:FootballResult) =
 let listTeamsWhoWonAwayGames (games:FootballResult list) = 
     List.filter hasWonAwayGame games
 
-///A function to aggregate the results of a collection of FootballResults
-let listTeams (games:FootballResult list) = 
-    List.groupBy (fun game -> game.AwayTeam) games
+///A function to aggregate the results of a collection of FootballResults by the away team's name.
+let listGamesByAwayTeam (games:FootballResult list) = 
+    List.countBy (fun game -> game.AwayTeam) games
 
 results
 |> listTeamsWhoWonAwayGames
-|> listTeams
+|> listGamesByAwayTeam
