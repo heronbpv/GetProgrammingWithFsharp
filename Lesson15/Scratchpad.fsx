@@ -24,11 +24,7 @@ let results =
 
 //How to define that a team won an away game?
 ///This filter returns true if the away team has scored more goals in the match than the home team. False otherwise.
-let hasWonAwayGame result = 
-    if result.AwayGoals > result.HomeGoals then 
-        true
-    else 
-        false
+let hasWonAwayGame result = result.AwayGoals > result.HomeGoals
 
 ///A function to transform a list of games into another, that contains only games won by the away team.
 let listTeamsWhoWonAwayGames games = 
@@ -51,5 +47,4 @@ results
 results
 |> List.filter (fun game -> game.AwayGoals > game.HomeGoals)
 |> List.countBy (fun game -> game.AwayTeam) 
-|> List.sortByDescending (fun result -> result |> snd) //This is more ad-hoc, but less clear to the above pipeline.
-
+|> List.sortByDescending (fun result -> result |> snd) //This is more ad-hoc, but less clear than the above pipeline.
