@@ -45,4 +45,4 @@ results
 //The above is the equivalent to the following, I believe:
 results
 |> List.filter (fun game -> game.AwayGoals > game.HomeGoals)
-|> List.countBy (fun game -> game.AwayTeam)
+|> List.countBy (fun game -> game.AwayTeam) //This is more ad-hoc, but less clear to the above pipeline.
