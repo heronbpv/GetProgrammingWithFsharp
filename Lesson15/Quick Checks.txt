@@ -7,3 +7,13 @@ A - To play nice with both currying and the pipeline operator.
 
 3 - What are some of the problems with processing collections imperatively?
 A - Inherent mutability leading to hard to identify bugs, difficulty in reasoning about the intermediate stages of the processing pipeline, problems identifiying reusable parts of the pipeline in other to improve the code.
+
+Quick check 15.2 answers:
+1 - How does seq relate to IEnumerable<T> ?
+A - seq is an alias of IEnumerable<T>.
+
+2 - How do higher-order functions relate to collection pipelines?
+A - N/A
+
+3 - What are the main differences between an imperative and functional approach to working with collections?
+A - N/A
