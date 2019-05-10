@@ -38,11 +38,17 @@ let listTeamsWhoWonAwayGames games =
 let listGamesByAwayTeam games = 
     List.countBy (fun game -> game.AwayTeam) games
 
+///Sorts a list of game result aggregates by the second element, which corresponds to the number of games won by the away team.
+let sortAggregateByAwayTeamWonGamesDescending results =
+    List.sortByDescending (fun result -> result |> snd) results
+
 results
 |> listTeamsWhoWonAwayGames
 |> listGamesByAwayTeam
+|> sortAggregateByAwayTeamWonGamesDescending
 
 //The above is the equivalent to the following, I believe:
 results
 |> List.filter (fun game -> game.AwayGoals > game.HomeGoals)
-|> List.countBy (fun game -> game.AwayTeam) //This is more ad-hoc, but less clear to the above pipeline.
+|> List.countBy (fun game -> game.AwayTeam) 
+|> List.sortByDescending (fun result -> result |> snd) //This is more ad-hoc, but less clear to the above pipeline.
