@@ -1,0 +1,9 @@
+Quick check 15.1 answers:
+1 - What are the three main collection modules in F#?
+A - List, Array and Seq.
+
+2 - Why is the input collection the last argument to collection functions?
+A - To play nice with both currying and the pipeline operator.
+
+3 - What are some of the problems with processing collections imperatively?
+A - Inherent mutability leading to hard to identify bugs, difficulty in reasoning about the intermediate stages of the processing pipeline, problems identifiying reusable parts of the pipeline in other to improve the code.
