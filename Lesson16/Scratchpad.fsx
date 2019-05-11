@@ -44,3 +44,6 @@ dates
 |> List.map (fun (a, b) -> b - a) //Take each window, and calculate the difference between it's elements, thus obtaining the transpired days for this pair
 |> List.map (fun time -> time.TotalDays) //Since the diference is in a timespan type, first extract the total days to a new collection
 |> List.sum //Then finish by aggregating the number of days for a total
+
+//Grouping functions -> perform a logic grouping of data.
+//@GroupBy: 
