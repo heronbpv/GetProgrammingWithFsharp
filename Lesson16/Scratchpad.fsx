@@ -20,4 +20,16 @@ for (name, _) in someList do
 someList
 |> List.iter (fun (name, _) -> printfn "Hello, %s" name)
 
-//
+//@Collect: Signature ('T -> 'U list) -> 'T list -> 'U list; LINQ equivalent: SelectMany; Obs.: Solves many-to-many relationships, by treating the results as a flat collection.
+//From the book: "It takes in a list of items, and a function that returns a new collection from each item... and then merges them all back into a single list".
+//Example: return all  orders for a certain set of customers
+type Order = {OrderId:int}
+type Customer = {CustomerId:int; Orders:Order list; Town:string}
+let customers = 
+    [{CustomerId = 1; Town = "London"; Orders = [{OrderId=1}; {OrderId=2}]}
+     {CustomerId = 2; Town = "Vladvostok"; Orders = [{OrderId=39}]}
+     {CustomerId = 5; Town = "Berlim"; Orders = [{OrderId=43}; {OrderId=56}; {OrderId=57}]}]
+//With a map, the result is a list of lists (see signature)
+let ordersMap = customers |> List.map (fun c -> c.Orders)
+//With collect, the list of lists is effectively flattened. This makes it easier to continue operations through a pipeline, since a flat list is easier to deal with
+let ordersCollect = customers |> List.collect (fun c -> c.Orders)
