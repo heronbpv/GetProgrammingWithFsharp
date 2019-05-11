@@ -7,3 +7,10 @@ A - A foreach loop.
 
 3 - What does the pairwise function do?
 A - Combines the elements of a collection in pairs, as if passing a window of size two through the collection.
+
+Quick check 16.2 answers:
+1 - When would you use countBy compared to groupBy?
+A - When I want to know the quantity for each category, instead of having the raw list of entries.
+
+2 - Why would you use groupBy as opposed to partition?
+A - Because I want to group things in more than two opposing catogeries.
