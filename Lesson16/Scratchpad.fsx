@@ -1,7 +1,7 @@
 //Mapping functions -> convert (map) a collection of a certain type to a collection of another type. 
 //Sometimes, the item type may be referred to as the item shape, hence calling these shapeshifting functions seems cool as fuck.
 
-//@Map: Signature ('T -> 'U) -> 'T list -> 'U list; LINQ equivalent: Select; Obs.: Input and output collection sizes are the same.
+//@Map: Signature ('T -> 'U) -> 'T list -> 'U list; LINQ: Select; Obs.: Input and output collection sizes are the same.
 let numbers = [1..10]
 let timesTwo n = n * 2
 let outputImperative = ResizeArray() //Example imperative ideia: creates a new collection based on a transformation of the elements of another.
@@ -10,7 +10,7 @@ for number in numbers do
 outputImperative
 let outputFunctional = numbers |> List.map timesTwo //Equivalent functional ideia.
 
-//@Iter: Signature ('T -> unit) -> 'T list -> unit; LINQ equivalent: N/A; Obs.: Applies side-effect to each element. Equivalent to a for each loop.
+//@Iter: Signature ('T -> unit) -> 'T list -> unit; LINQ: N/A; Obs.: Applies side-effect to each element. Equivalent to a for each loop.
 let someList =[("Isaac", "London"); ("Sara", "Birmingham"); ("Tim", "London"); ("Michelle", "Manchester")]
 
 //Imperative way to print all names: foreach loop
@@ -20,7 +20,7 @@ for (name, _) in someList do
 someList
 |> List.iter (fun (name, _) -> printfn "Hello, %s" name)
 
-//@Collect: Signature ('T -> 'U list) -> 'T list -> 'U list; LINQ equivalent: SelectMany; Obs.: Solves many-to-many relationships, by treating the results as a flat collection.
+//@Collect: Signature ('T -> 'U list) -> 'T list -> 'U list; LINQ: SelectMany; Obs.: Solves many-to-many relationships, by treating the results as a flat collection.
 //From the book: "It takes in a list of items, and a function that returns a new collection from each item... and then merges them all back into a single list".
 //Example: return all  orders for a certain set of customers
 type Order = {OrderId:int}
@@ -33,3 +33,14 @@ let customers =
 let ordersMap = customers |> List.map (fun c -> c.Orders)
 //With collect, the list of lists is effectively flattened. This makes it easier to continue operations through a pipeline, since a flat list is easier to deal with
 let ordersCollect = customers |> List.collect (fun c -> c.Orders)
+
+//@Pairwise: Signature 'T list -> ('T * 'T) list; LINQ: N/A; Obs.: Specialized version of the Windowed function, for a pair. Think of it as a hovering window passing through.
+//Useful to calculate the "distance" between items in a ordered collection.
+//Example: calculate the number of days transpired, from a list of dates
+open System
+let dates = [DateTime(2010,5,1); DateTime(2010,6,1); DateTime(2010,6,12); DateTime(2010,7,3)]
+dates
+|> List.pairwise //Puts up a window of size 2 over the list, pass trhough it, then returns the windows
+|> List.map (fun (a, b) -> b - a) //Take each window, and calculate the difference between it's elements, thus obtaining the transpired days for this pair
+|> List.map (fun time -> time.TotalDays) //Since the diference is in a timespan type, first extract the total days to a new collection
+|> List.sum //Then finish by aggregating the number of days for a total
