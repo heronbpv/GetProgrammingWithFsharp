@@ -14,3 +14,13 @@ A - When I want to know the quantity for each category, instead of having the ra
 
 2 - Why would you use groupBy as opposed to partition?
 A - Because I want to group things in more than two opposing catogeries.
+
+Quick check 16.3 answers:
+1 - What is the F# equivalent to LINQ’s Aggregate method?
+A - Fold.
+
+2 - What is the F# equivalent to LINQ’s Take method?
+A - Truncate. The take function in the F#'s collections behaves a little differently. See table 16.1 on page 194.
+
+3 - Give two reasons that you might need to convert between collection types in F#.
+A - For performance reasons, and for compatibility between inputs/outputs of functions.
