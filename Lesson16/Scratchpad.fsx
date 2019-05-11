@@ -127,3 +127,12 @@ let countFilesInFolder path =
 
 countFilesInFolder "D:\Programacao\GetProgrammingWithFsharp\Lesson16"
 countFilesInFolder "D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2"
+
+//Gets the number of files from the directory
+let calculateAvgFileSize path = 
+    let dirInfo = new DirectoryInfo(path)
+    dirInfo.GetFiles()
+    |> Array.averageBy (fun file -> file.Length |> float)
+
+calculateAvgFileSize "D:\Programacao\GetProgrammingWithFsharp\Lesson16"
+calculateAvgFileSize "D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2"
