@@ -97,9 +97,9 @@ listAllSubfoldersIfAny "D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capston
 //Second part: create a data structure to hold some information about the folder and present it instead
 type FolderData = 
     { Name : string
-      Size : int
+      Size : int64
       NumberOfFiles : int
-      AvgFileSize : int
+      AvgFileSize : float
       Extensions : string list }
 //Create a creation function for the type
 let create name size nof avg exts = 
@@ -143,6 +143,14 @@ let getExtensions path =
     dirInfo.GetFiles()
     |> Array.map (fun file -> file.Extension)
     |> Array.distinct
+    |> Array.toList
 
 getExtensions "D:\Programacao\GetProgrammingWithFsharp\Lesson16"
 getExtensions "D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2"
+
+let initFolderData path = 
+    let dirInfo = new DirectoryInfo(path)
+    create dirInfo.Name (calculateSize path) (countFilesInFolder path) (calculateAvgFileSize path) (getExtensions path)
+
+initFolderData "D:\Programacao\GetProgrammingWithFsharp\Lesson16"
+initFolderData "D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2"
