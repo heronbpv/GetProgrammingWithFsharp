@@ -120,7 +120,7 @@ let rec calculateSize path =
 calculateSize "D:\Programacao\GetProgrammingWithFsharp\Lesson16"
 calculateSize "D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2"
 
-//Gets the number of files from the directory
+///Gets the number of files from the directory.
 let countFilesInFolder path = 
     let dirInfo = new DirectoryInfo(path)
     dirInfo.GetFiles().Length
@@ -128,7 +128,7 @@ let countFilesInFolder path =
 countFilesInFolder "D:\Programacao\GetProgrammingWithFsharp\Lesson16"
 countFilesInFolder "D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2"
 
-//Gets the number of files from the directory
+///Calculates the average size of files in the directory.
 let calculateAvgFileSize path = 
     let dirInfo = new DirectoryInfo(path)
     dirInfo.GetFiles()
@@ -136,3 +136,13 @@ let calculateAvgFileSize path =
 
 calculateAvgFileSize "D:\Programacao\GetProgrammingWithFsharp\Lesson16"
 calculateAvgFileSize "D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2"
+
+///Lists all file extensions in use inside the directory.
+let getExtensions path = 
+    let dirInfo = new DirectoryInfo(path)
+    dirInfo.GetFiles()
+    |> Array.map (fun file -> file.Extension)
+    |> Array.distinct
+
+getExtensions "D:\Programacao\GetProgrammingWithFsharp\Lesson16"
+getExtensions "D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2"
