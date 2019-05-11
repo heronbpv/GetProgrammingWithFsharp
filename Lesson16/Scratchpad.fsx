@@ -82,6 +82,7 @@ someList |> List.countBy (fun (_, city) -> city)
 let londonCustomers, otherCustomers = someList |> List.partition (fun (_, city) -> city = "London")
 
 //@Try this 16:
+//First part: list all subfolders names and their sizes.
 open System.IO
 let listAllSubfoldersIfAny path =
     let dirInfo = new DirectoryInfo(path)
@@ -89,11 +90,11 @@ let listAllSubfoldersIfAny path =
     subDirs
     |> Array.map (fun dirInfo -> dirInfo.Name, dirInfo.GetFiles() |> Array.sumBy (fun file -> file.Length))
     |> Array.sortByDescending (fun (_,lenght) -> lenght)
-    
 
 listAllSubfoldersIfAny "D:\Programacao\GetProgrammingWithFsharp\Lesson16"
 listAllSubfoldersIfAny "D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2"
 
+//Second part: create a data structure to hold some information about the folder and present it instead
 type FolderData = 
     { Name : string
       Size : int
@@ -104,16 +105,25 @@ type FolderData =
 let create name size nof avg exts = 
     {Name = name; Size = size; NumberOfFiles = nof; AvgFileSize = avg; Extensions = exts}
 
+///Calculates the size of the directory, including the size of it's subdirectories.
 let rec calculateSize path = 
     let dirInfo = new DirectoryInfo(path)
-    let acc = 
+    let totalFromLocal = 
         dirInfo.GetFiles()
         |> Array.sumBy (fun file -> file.Length)
     let totalFromSubs =
         dirInfo.GetDirectories()
         |> Array.map (fun dir -> dir.FullName)
         |> Array.sumBy calculateSize
-    acc + totalFromSubs
+    totalFromLocal + totalFromSubs
 
 calculateSize "D:\Programacao\GetProgrammingWithFsharp\Lesson16"
 calculateSize "D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2"
+
+//Gets the number of files from the directory
+let countFilesInFolder path = 
+    let dirInfo = new DirectoryInfo(path)
+    dirInfo.GetFiles().Length
+
+countFilesInFolder "D:\Programacao\GetProgrammingWithFsharp\Lesson16"
+countFilesInFolder "D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2"
