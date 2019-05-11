@@ -93,7 +93,10 @@ open System.IO
 let listAllSubfoldersIfAny path =
     let dirInfo = new DirectoryInfo(path)
     let subDirs = dirInfo.GetDirectories()
-    subDirs |> Array.map (fun dir -> dir.Name) 
+    subDirs
+    |> Array.map (fun dirInfo -> dirInfo.Name, dirInfo.GetFiles() |> Array.sumBy (fun file -> file.Length))
+    |> Array.sortByDescending (fun (_,lenght) -> lenght)
+    
 
 listAllSubfoldersIfAny "D:\Programacao\GetProgrammingWithFsharp\Lesson16"
 listAllSubfoldersIfAny "D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2"
