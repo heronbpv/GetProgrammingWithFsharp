@@ -114,3 +114,6 @@ let rec calculateSize path =
         |> Array.map (fun dir -> dir.FullName)
         |> Array.sumBy calculateSize
     acc + totalFromSubs
+
+calculateSize "D:\Programacao\GetProgrammingWithFsharp\Lesson16"
+calculateSize "D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2"
