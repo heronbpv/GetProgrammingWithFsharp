@@ -53,3 +53,7 @@ someList
 //@CountBy: ('T -> 'Key) -> 'T list -> ('Key * int) list; LINQ: N/A; Like groupBy, but returns an aggregate as the second element of the return pair
 someList
 |> List.countBy (fun (_, city) -> city)
+
+//@Partition: ('T -> bool) -> 'T list -> ('T list * 'T list); LINQ: N/A; Splits the collection in two, based on a predicate. First half is the true returning one.
+let londonCustomers, otherCustomers = 
+    someList |> List.partition (fun (_, city) -> city = "London")
