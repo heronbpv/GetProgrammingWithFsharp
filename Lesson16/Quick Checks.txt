@@ -1,0 +1,9 @@
+Quick check 16.1 answers:
+1 - What is the F# equivalent of LINQ’s Select method?
+A - The map function.
+
+2 - What is the imperative equivalent to the iter function?
+A - A foreach loop.
+
+3 - What does the pairwise function do?
+A - Combines the elements of a collection in pairs, as if passing a window of size two through the collection.
