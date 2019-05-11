@@ -49,3 +49,7 @@ dates
 //@GroupBy: ('T -> 'Key) -> 'T list -> ('Key * 'T list) list; LINQ: GroupBy; 
 someList
 |> List.groupBy (fun (_, city) -> city)
+
+//@CountBy: ('T -> 'Key) -> 'T list -> ('Key * int) list; LINQ: N/A; Like groupBy, but returns an aggregate as the second element of the return pair
+someList
+|> List.countBy (fun (_, city) -> city)
