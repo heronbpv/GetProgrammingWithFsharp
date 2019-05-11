@@ -82,13 +82,6 @@ someList |> List.countBy (fun (_, city) -> city)
 let londonCustomers, otherCustomers = someList |> List.partition (fun (_, city) -> city = "London")
 
 //@Try this 16:
-type FolderData = 
-    { Name : string
-      Size : int
-      NumberOfFiles : int
-      AvgFileSize : int
-      Extensions : string list }
-
 open System.IO
 let listAllSubfoldersIfAny path =
     let dirInfo = new DirectoryInfo(path)
@@ -100,3 +93,24 @@ let listAllSubfoldersIfAny path =
 
 listAllSubfoldersIfAny "D:\Programacao\GetProgrammingWithFsharp\Lesson16"
 listAllSubfoldersIfAny "D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2"
+
+type FolderData = 
+    { Name : string
+      Size : int
+      NumberOfFiles : int
+      AvgFileSize : int
+      Extensions : string list }
+//Create a creation function for the type
+let create name size nof avg exts = 
+    {Name = name; Size = size; NumberOfFiles = nof; AvgFileSize = avg; Extensions = exts}
+
+let rec calculateSize path = 
+    let dirInfo = new DirectoryInfo(path)
+    let acc = 
+        dirInfo.GetFiles()
+        |> Array.sumBy (fun file -> file.Length)
+    let totalFromSubs =
+        dirInfo.GetDirectories()
+        |> Array.map (fun dir -> dir.FullName)
+        |> Array.sumBy calculateSize
+    acc + totalFromSubs
