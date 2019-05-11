@@ -11,9 +11,13 @@ outputImperative
 let outputFunctional = numbers |> List.map timesTwo //Equivalent functional ideia.
 
 //@Iter: Signature ('T -> unit) -> 'T list -> unit; LINQ equivalent: N/A; Obs.: Applies side-effect to each element. Equivalent to a for each loop.
-[("Isaac", "London")
- ("Sara", "Birmingham")
- ("Tim", "London")
- ("Michelle", "Manchester")]
-|> List.iter (fun (name, city) -> printfn "Hello, %s" name)
+let someList =[("Isaac", "London"); ("Sara", "Birmingham"); ("Tim", "London"); ("Michelle", "Manchester")]
 
+//Imperative way to print all names: foreach loop
+for (name, _) in someList do
+    printfn "Hello, %s" name
+//Functional way
+someList
+|> List.iter (fun (name, _) -> printfn "Hello, %s" name)
+
+//
