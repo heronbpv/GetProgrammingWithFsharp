@@ -1,0 +1,9 @@
+Quick check 17.1 answers:
+1 - What sort of situations would you use a dictionary for?
+A - Anything involving fast key/value lookups.
+
+2 - How does F# syntax simplify creating dictionaries?
+A - Because it allows for easier initialization of the type.
+
+3 - Why might you use the dict function in F#?
+A - To create immutable dictionaries.
