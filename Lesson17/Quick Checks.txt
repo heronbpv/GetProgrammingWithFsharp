@@ -14,3 +14,7 @@ A - Dictionary is mutable, and Map is immutable.
 
 2 - When should you use Dictionary over Map ?
 A - When the need for performance is higher.
+
+Quick check 17.3 answer:
+1 - What function might you use to simulate simple set-style behavior in a list?
+A - Distinct.
