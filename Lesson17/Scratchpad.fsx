@@ -53,3 +53,14 @@ let listOfDirsOnPartition partition =
     |> Map.map (fun dirName dirDtUtc -> (System.DateTime.UtcNow - dirDtUtc).TotalDays)
 
 listOfDirsOnPartition @"C:\" //Remember to put the @ symbol before path strings to ensure they work properly.
+
+//@Set
+//Represent the mathematical notion of sets, including it's operations.
+//Sets are collections of distinct values, so repetitions are removed by default
+let myBasket = ["Apples"; "Apples"; "Apples"; "Oranges"; "Bananas"; "Pineapples"] |> Set.ofList
+let anotherBasket = ["Kiwi"; "Bananas"; "Grapes"] |> Set.ofList
+let fruitsInAllBaskets = myBasket + anotherBasket //Union operation.
+let fruitsOnlyInMyBasket = myBasket - anotherBasket
+let fruitsOnlyInAnotherBasket = anotherBasket - myBasket //Difference operations, one for each side; results differ, so careful!
+let fruitsOnBothBaskets = myBasket |> Set.intersect anotherBasket //Intersection operation.
+let isAnotherBasketASubsetOfMyOwn = myBasket |> Set.isSubset anotherBasket //Subset operation.
