@@ -42,3 +42,14 @@ let newInv3 =
 let cheapFruit, expensiveFruit = 
     newInv3
     |> Map.partition (fun fruit cost -> cost < 0.3) //The arguments are the key -> value pair of the map, curried thanks to the predicate definition.
+
+//@Now you try 17.2.1
+open System.IO
+let listOfDirsOnPartition partition = 
+    let directories = Directory.EnumerateDirectories partition
+    directories 
+    |> Seq.map ((fun path -> new DirectoryInfo(path)) >> (fun dirInfo -> dirInfo.Name, dirInfo.CreationTimeUtc)) //I don't think this is as clear as simply two separate maps, Linter...
+    |> Map.ofSeq
+    |> Map.map (fun dirName dirDtUtc -> (System.DateTime.UtcNow - dirDtUtc).TotalDays)
+
+listOfDirsOnPartition @"C:\" //Remember to put the @ symbol before path strings to ensure they work properly.
