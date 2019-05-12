@@ -7,3 +7,10 @@ A - Because it allows for easier initialization of the type.
 
 3 - Why might you use the dict function in F#?
 A - To create immutable dictionaries.
+
+Quick check 17.2 answers:
+1 - What’s the main difference between Dictionary and Map ?
+A - Dictionary is mutable, and Map is immutable.
+
+2 - When should you use Dictionary over Map ?
+A - When the need for performance is higher.
