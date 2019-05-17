@@ -33,3 +33,19 @@ let ``Lenght of a list of 5 nulls`` = lenght [null; null; null; null; null]
 let ``Lenght of an empty list`` = lenght []
 let ``Lenght of a list of 2 strings`` = lenght ["first"; "second"]
 let ``Lenght of a list of a tuple of 2 strings`` = lenght [("first", "second")]
+
+//Imperative aggregator for the max function
+let max inputs = 
+    let mutable accumulator = 0
+    for input in inputs do
+        if input > accumulator then
+            accumulator <- input
+    accumulator
+
+//Some tests for max
+let ``Max in a crescent list of numbers is the last number`` = max [1; 2; 3; 4; 5]
+let ``Max in a decrescent list of numbers is the first number`` = max [5; 4; 3; 2; 1]
+let ``Max in an unordered list of number must be result in the highest number`` = max [3; 1; 4; 6; 2; 5]
+let ``Max of an empty list is 0`` = max []
+//let ``Max in a list of nulls is a compilation error`` = max [null; null; null]
+//let ``Max for a list of ints can't process a list of strings`` = max ["1"; "2"; "3"] //Thus showing that the current implementation is not generic enough.
