@@ -6,15 +6,27 @@ let getAllFilesFromDir path =
     files 
     |> Seq.map (fun file -> (new FileInfo(file)))
 
-///Creates a set of all file types within a folder
-let createFileTypeSet path =
-    getAllFilesFromDir path
-    |> Seq.map (fun file -> file.Extension)
-    |> Set.ofSeq
+//Rules type
+type Rule = FileInfo -> bool * string
 
-//Create two sets of file types from different folders
-let set1 = createFileTypeSet @"D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2\Capstone2\obj"
-let set2 = createFileTypeSet @"D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2\Capstone2\bin"
+//Aggregator, now using reduce instead of fold; adapted from the scratchpad from lesson 18.
+let validateReduce (rules:Rule list) = 
+    rules
+    |> List.reduce (fun rule1 rule2 -> 
+                       fun file -> 
+                        if file |> isNull then
+                            false, "Empty string"
+                        else 
+                            let passed, error = rule1 file
+                            if passed then
+                                let passed, error = rule2 file
+                                if passed then
+                                    true, ""
+                                else
+                                    false, error
+                            else
+                                false, error)
 
-//Now find which types are used between them
-set1 |> Set.intersect set2
+//The file info collections used on lesson 17.
+let set1 = getAllFilesFromDir @"D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2\Capstone2\obj"
+let set2 = getAllFilesFromDir @"D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2\Capstone2\bin"
