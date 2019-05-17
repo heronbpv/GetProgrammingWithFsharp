@@ -11,12 +11,12 @@ let isValidCommand (command:char) = ['d'; 'w'; 'x'] |> List.contains command
 ///Checks whether the command is the e(x)it command.
 let isStopCommand (command:char) = command = 'x'
 
-///Returns a tuple of the command and the associated predefined value, or zero.
+///Queries the user for the amount desired, and returns a tuple of the command and said value.
 let getAmount (command:char) = 
-    match command with
-    | 'd' -> command, 50M
-    | 'w' -> command, 25M
-    | _ -> command, 0M
+    Console.WriteLine "\r\nEnter amount: "
+    let amount = Console.ReadLine()
+    let amount = decimal (amount) //Shadowing to the rescue!
+    command, amount
 
 ///Applies the given pair of command and amount to the account in question.
 let processCommand (account:Account) (command:char, amount:decimal) = 
@@ -39,7 +39,7 @@ let main _ =
     let closingAccount =
         let commands = seq {
             while true do
-                Console.WriteLine "(d)eposit, (w)ithdraw, or e(x)it:"
+                Console.WriteLine "\r\n(d)eposit, (w)ithdraw, or e(x)it:"
                 yield Console.ReadKey().KeyChar}
         commands
         |> Seq.filter isValidCommand
