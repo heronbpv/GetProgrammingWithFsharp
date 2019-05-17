@@ -1,0 +1,6 @@
+Quick check 18.1 answers:
+1 - What is the general signature of an aggregation?
+A - seq<'T> -> 'U
+
+2 - What are the main components of any aggregation?
+A - An input collection, an accumulator responsible to hold the state of the computation that'll be returned as it's result, and an initial value for said accumulator.
