@@ -19,20 +19,20 @@ let ``add 0 and 0`` = sum [0; 0]
 //let ``add 1 and null take 2`` = sum [1; int(Nullable<int>(null))] //Compiler error!
 
 //@Now you try 18.1.1
-//Imperative aggregator for the lenght function
-let lenght inputs = //Notice that the inputs type is a generalized collection; That's because it's type has no bearing in the result of the computation below.
+//Imperative aggregator for the length function
+let length inputs = //Notice that the inputs type is a generalized collection; That's because it's type has no bearing in the result of the computation below.
     let mutable accumulator = 0
     for input in inputs do
         accumulator <- accumulator + 1 //Only the implementation of the loop changes
     accumulator
 
-//Some tests for lenght
-let ``Lenght of a list of 5 numbers`` = lenght [1; 2; 3; 4; 5]
-let ``Lenght of an array of 5 numbers`` = lenght [|1; 2; 3; 4; 5|]
-let ``Lenght of a list of 5 nulls`` = lenght [null; null; null; null; null]
-let ``Lenght of an empty list`` = lenght []
-let ``Lenght of a list of 2 strings`` = lenght ["first"; "second"]
-let ``Lenght of a list of a tuple of 2 strings`` = lenght [("first", "second")]
+//Some tests for length
+let ``length of a list of 5 numbers`` = length [1; 2; 3; 4; 5]
+let ``length of an array of 5 numbers`` = length [|1; 2; 3; 4; 5|]
+let ``length of a list of 5 nulls`` = length [null; null; null; null; null]
+let ``length of an empty list`` = length []
+let ``length of a list of 2 strings`` = length ["first"; "second"]
+let ``length of a list of a tuple of 2 strings`` = length [("first", "second")]
 
 //Imperative aggregator for the max function
 let max inputs = 
@@ -80,15 +80,15 @@ let sum2log inputs =
 sum2log [1..5]
 
 //@Now you try 18.2
-let lenght2 inputs = Seq.fold (fun state input -> state + 1) 0 inputs //So simple it can be one lined.
+let length2 inputs = Seq.fold (fun state input -> state + 1) 0 inputs //So simple it can be one lined.
 
 //Test results are the same as before
-let ``Lenght of a list of 5 numbers with lenght2`` = lenght2 [1; 2; 3; 4; 5]
-let ``Lenght of an array of 5 numbers with lenght2`` = lenght2 [|1; 2; 3; 4; 5|]
-let ``Lenght of a list of 5 nulls with lenght2`` = lenght2 [null; null; null; null; null]
-let ``Lenght of an empty list with lenght2`` = lenght2 []
-let ``Lenght of a list of 2 strings with lenght2`` = lenght2 ["first"; "second"]
-let ``Lenght of a list of a tuple of 2 strings with lenght2`` = lenght2 [("first", "second")]
+let ``length of a list of 5 numbers with length2`` = length2 [1; 2; 3; 4; 5]
+let ``length of an array of 5 numbers with length2`` = length2 [|1; 2; 3; 4; 5|]
+let ``length of a list of 5 nulls with length2`` = length2 [null; null; null; null; null]
+let ``length of an empty list with length2`` = length2 []
+let ``length of a list of 2 strings with length2`` = length2 ["first"; "second"]
+let ``length of a list of a tuple of 2 strings with length2`` = length2 [("first", "second")]
 
 let max2 inputs = Seq.fold (fun state input -> if input > state then input else state) 0 inputs
 
@@ -99,3 +99,66 @@ let ``Max in an unordered list of number must be result in the highest number wi
 let ``Max of an empty list is 0 with max2`` = max2 []
 //let ``Max in a list of nulls is a compilation error with max2`` = max2 [null; null; null]
 //let ``Max for a list of ints can't process a list of strings with max2`` = max2 ["1"; "2"; "3"]
+
+//Folding functions: a rules engine example
+//Challenge: given a list of functions that have the same signature, give me a single function that runs all of them together.
+open System
+type Rule = string -> bool * string //The rule format definition, as a type alias
+let rules :Rule list=               //A list of rules in said format
+    [fun text -> (text.Split ' ').Length = 3, "Must be three words"
+     fun text -> text.Length <= 30, "Max length is 30 characters"
+     fun text -> text |> Seq.filter Char.IsLetter |> Seq.forall Char.IsUpper, "All letters must be caps"]
+
+//Solution 1 - manual function composition
+let validateManual (rules:Rule list) text =
+    if String.IsNullOrEmpty text then
+        false, "Empty string"
+    else
+        let passed, error = rules.[0] text //Pattern matching on the result of the first function applied to argument word
+        if not passed then                 //Cascading verification, at each function; growths linearly with the collection size.
+            false, error
+        else
+            let passed, error = rules.[1] text
+            if not passed then
+                false, error
+            else
+                let passed, error = rules.[2] text
+                if not passed then
+                    false, error
+                else
+                    true, ""
+
+//Testing
+let ``superFunc manual error on first validation`` = validateManual rules "nope"
+let ``superFunc manual error on second validation`` = validateManual rules "nopenopenopenopenopenopenope nopenopenopenopenopenopenope nopenopenopenopenopenope"
+let ``superFunc manual error on third validation`` = validateManual rules "nope nope nope"
+let ``superFunc manual error on null argument`` = validateManual rules null
+let ``superFunc manual error on empty string argument`` = validateManual rules ""
+let ``superFunc manual successful`` = validateManual rules "BIG FAT NOPE"
+
+//Solution 2 - using fold
+let validateFold (rules:Rule list) = //Could be done with reduce, as per the book example
+    rules
+    |> List.fold (fun rule1 rule2 -> //Using fold with the value of the first element of the collection, one just have to define the first level of the cascade.
+                   fun text -> 
+                    if String.IsNullOrEmpty text then
+                        false, "Empty string"
+                    else 
+                        let passed, error = rule1 text
+                        if passed then
+                            let passed, error = rule2 text //In case of a collection with only one function, if it's true then the function is evaluated twice, which's bad.
+                            if passed then
+                                true, ""
+                            else
+                                false, error
+                        else
+                            false, error) 
+                 rules.[0]
+
+//Testing
+let ``superFunc with fold, error on first validation`` = validateFold rules "nope"
+let ``superFunc with fold, error on second validation`` = validateFold rules "nopenopenopenopenopenopenope nopenopenopenopenopenopenope nopenopenopenopenopenope"
+let ``superFunc with fold, error on third validation`` = validateFold rules "nope nope nope"
+let ``superFunc with fold, error on null argument`` = validateFold rules null
+let ``superFunc with fold, error on empty string argument`` = validateFold rules ""
+let ``superFunc with fold, successful`` = validateFold rules "BIG FAT NOPE"
