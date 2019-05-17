@@ -19,7 +19,12 @@ let getAmount (command:char) =
     | 'w' -> command, 25M
     | _ -> command, 0M
 
-let processCommand (account:Account) (command:char, amount:decimal) = account
+///Applies the given pair of command and amount to the account in question.
+let processCommand (account:Account) (command:char, amount:decimal) = 
+    match command with
+    | 'd' -> deposit amount account
+    | 'w' -> withdraw amount account
+    | _ -> account
 
 //Testing the pipeline
 let openingAccount = {Owner = {Name = "Isaac"}; Balance = 0M; AccountId = Guid.Empty} //The test account
