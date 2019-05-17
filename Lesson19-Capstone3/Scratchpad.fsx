@@ -8,8 +8,17 @@ open System
 //Pipeline functions
 ///Checks whether the command is one of (d)eposit, (w)ithdraw, or e(x)it.
 let isValidCommand (command:char) = ['d'; 'w'; 'x'] |> List.contains command
-let isStopCommand (command:char) = false
-let getAmount (command:char) = command, 0M
+
+///Checks whether the command is the e(x)it command.
+let isStopCommand (command:char) = command = 'x'
+
+///Returns a tuple of the command and the associated predefined value, or zero.
+let getAmount (command:char) = 
+    match command with
+    | 'd' -> command, 50M
+    | 'w' -> command, 25M
+    | _ -> command, 0M
+
 let processCommand (account:Account) (command:char, amount:decimal) = account
 
 //Testing the pipeline
