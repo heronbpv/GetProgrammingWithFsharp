@@ -11,3 +11,10 @@ A - Fold expects an initial value for the accumulator to be provided, while redu
 
 2 - Which two F# keywords are important in order to lazily generate sequences of data?
 A - seq, to define a sequence expression (of form seq {}, where the curly braces define the scope of the seq block) and yield, to yield the items to be generated lazily as a result of the sequence expression.
+
+Quick check 18.3 answers:
+1 - What OO pattern is equivalent to reducing functions together?
+A - The composite pattern.
+
+2 - What happens to a type alias after compilation? Is it available at runtime?
+A - No, as it's substituted by the type it was an alias of.
