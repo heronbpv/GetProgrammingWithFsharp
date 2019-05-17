@@ -78,3 +78,24 @@ let sum2log inputs =
 
 //One final test with the log version
 sum2log [1..5]
+
+//@Now you try 18.2
+let lenght2 inputs = Seq.fold (fun state input -> state + 1) 0 inputs //So simple it can be one lined.
+
+//Test results are the same as before
+let ``Lenght of a list of 5 numbers with lenght2`` = lenght2 [1; 2; 3; 4; 5]
+let ``Lenght of an array of 5 numbers with lenght2`` = lenght2 [|1; 2; 3; 4; 5|]
+let ``Lenght of a list of 5 nulls with lenght2`` = lenght2 [null; null; null; null; null]
+let ``Lenght of an empty list with lenght2`` = lenght2 []
+let ``Lenght of a list of 2 strings with lenght2`` = lenght2 ["first"; "second"]
+let ``Lenght of a list of a tuple of 2 strings with lenght2`` = lenght2 [("first", "second")]
+
+let max2 inputs = Seq.fold (fun state input -> if input > state then input else state) 0 inputs
+
+//Same test results as the original max function
+let ``Max in a crescent list of numbers is the last number with max2`` = max2 [1..5]
+let ``Max in a decrescent list of numbers is the first number with max2`` = max2 [5..-1..1]
+let ``Max in an unordered list of number must be result in the highest number with max2`` = max2 [3; 1; 4; 6; 2; 5]
+let ``Max of an empty list is 0 with max2`` = max2 []
+//let ``Max in a list of nulls is a compilation error with max2`` = max2 [null; null; null]
+//let ``Max for a list of ints can't process a list of strings with max2`` = max2 ["1"; "2"; "3"]
