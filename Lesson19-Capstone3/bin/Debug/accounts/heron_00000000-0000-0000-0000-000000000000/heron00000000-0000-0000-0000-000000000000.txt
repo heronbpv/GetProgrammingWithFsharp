@@ -1,0 +1,20 @@
+17/05/2019 20:38:28***deposit***1231***false***
+Performing a deposit operation for R$1231... Transaction not yet accepted.
+17/05/2019 20:38:28***deposit***1231***true***
+Transaction accepted! Balance is now R$1231.
+17/05/2019 20:38:36***withdraw***999***false***
+Performing a withdraw operation for R$999... Transaction not yet accepted.
+17/05/2019 20:38:36***withdraw***999***true***
+Transaction accepted! Balance is now R$232.
+17/05/2019 20:38:43***deposit***281***false***
+Performing a deposit operation for R$281... Transaction not yet accepted.
+17/05/2019 20:38:43***deposit***281***true***
+Transaction accepted! Balance is now R$513.
+17/05/2019 20:38:47***withdraw***900***false***
+Performing a withdraw operation for R$900... Transaction not yet accepted.
+17/05/2019 20:38:47***withdraw***900***false***
+Transaction rejected!
+17/05/2019 20:38:51***withdraw***400***false***
+Performing a withdraw operation for R$400... Transaction not yet accepted.
+17/05/2019 20:38:51***withdraw***400***true***
+Transaction accepted! Balance is now R$113.

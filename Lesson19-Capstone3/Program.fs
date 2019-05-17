@@ -4,6 +4,10 @@ open System
 open Capstone3.Domain
 open Capstone3.Operations
 
+//Functions extracted from the main method, for use with these local functions
+let withdrawWithAudit = auditAs "withdraw" Auditing.composedLogger withdraw
+let depositWithAudit = auditAs "deposit" Auditing.composedLogger deposit
+
 //Pipeline functions
 ///Checks whether the command is one of (d)eposit, (w)ithdraw, or e(x)it.
 let isValidCommand (command:char) = ['d'; 'w'; 'x'] |> List.contains command
@@ -21,8 +25,8 @@ let getAmount (command:char) =
 ///Applies the given pair of command and amount to the account in question.
 let processCommand (account:Account) (command:char, amount:decimal) = 
     match command with
-    | 'd' -> deposit amount account
-    | 'w' -> withdraw amount account
+    | 'd' -> depositWithAudit amount account
+    | 'w' -> withdrawWithAudit amount account
     | _ -> account
 
 [<EntryPoint>]
@@ -31,16 +35,13 @@ let main _ =
         Console.Write "Please enter your name: "
         Console.ReadLine()
 
-    let withdrawWithAudit = auditAs "withdraw" Auditing.composedLogger withdraw
-    let depositWithAudit = auditAs "deposit" Auditing.composedLogger deposit
-
     let openingAccount = { Owner = { Name = name }; Balance = 0M; AccountId = Guid.Empty } 
     Console.WriteLine ("Current balance is R$" + openingAccount.Balance.ToString()) //Initial print of the balance
 
     let closingAccount =
         let commands = seq {
             while true do
-                Console.Write "(d)eposit, (w)ithdraw, or e(x)it:"
+                Console.Write "\r\n(d)eposit, (w)ithdraw, or e(x)it:"
                 yield Console.ReadKey().KeyChar}
         
         commands
