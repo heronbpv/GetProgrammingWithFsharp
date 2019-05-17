@@ -37,7 +37,10 @@ let main _ =
     let openingAccount = { Owner = { Name = name }; Balance = 0M; AccountId = Guid.Empty } 
 
     let closingAccount =
-        let commands = ['d'; 'w'; 'z'; 'f'; 'd'; 'x'; 'w']
+        let commands = seq {
+            while true do
+                Console.WriteLine "(d)eposit, (w)ithdraw, or e(x)it:"
+                yield Console.ReadKey().KeyChar}
         commands
         |> Seq.filter isValidCommand
         |> Seq.takeWhile (not << isStopCommand) //operator "<<" read as "compose left with" or "compose backwards from", in regards to the flow direction of output to input.
