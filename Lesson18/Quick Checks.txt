@@ -4,3 +4,10 @@ A - seq<'T> -> 'U
 
 2 - What are the main components of any aggregation?
 A - An input collection, an accumulator responsible to hold the state of the computation that'll be returned as it's result, and an initial value for said accumulator.
+
+Quick check 18.2 answers:
+1 - What’s the difference between reduce and fold ?
+A - Fold expects an initial value for the accumulator to be provided, while reduce uses the first value of the collection. Also, because of that, reduce returns an exception when the collection is empty, while fold does not.
+
+2 - Which two F# keywords are important in order to lazily generate sequences of data?
+A - seq, to define a sequence expression (of form seq {}, where the curly braces define the scope of the seq block) and yield, to yield the items to be generated lazily as a result of the sequence expression.
