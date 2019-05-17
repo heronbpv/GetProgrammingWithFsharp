@@ -6,7 +6,8 @@ open Capstone3.Domain
 open System
 
 //Pipeline functions
-let isValidCommand (command:char) = if command = 'w' then true else false
+///Checks whether the command is one of (d)eposit, (w)ithdraw, or e(x)it.
+let isValidCommand (command:char) = ['d'; 'w'; 'x'] |> List.contains command
 let isStopCommand (command:char) = false
 let getAmount (command:char) = command, 0M
 let processCommand (account:Account) (command:char, amount:decimal) = account
