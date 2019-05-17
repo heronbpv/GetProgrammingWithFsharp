@@ -13,7 +13,7 @@ let isStopCommand (command:char) = command = 'x'
 
 ///Queries the user for the amount desired, and returns a tuple of the command and said value.
 let getAmount (command:char) = 
-    Console.WriteLine "\r\nEnter amount: "
+    Console.Write "Enter amount: "
     let amount = Console.ReadLine()
     let amount = decimal (amount) //Shadowing to the rescue!
     command, amount
@@ -35,17 +35,20 @@ let main _ =
     let depositWithAudit = auditAs "deposit" Auditing.composedLogger deposit
 
     let openingAccount = { Owner = { Name = name }; Balance = 0M; AccountId = Guid.Empty } 
+    Console.WriteLine ("\r\nCurrent balance is R$" + openingAccount.Balance.ToString()) //Initial print of the balance
 
     let closingAccount =
         let commands = seq {
             while true do
-                Console.WriteLine "\r\n(d)eposit, (w)ithdraw, or e(x)it:"
+                Console.Write "(d)eposit, (w)ithdraw, or e(x)it:"
                 yield Console.ReadKey().KeyChar}
+        
         commands
         |> Seq.filter isValidCommand
         |> Seq.takeWhile (not << isStopCommand) //operator "<<" read as "compose left with" or "compose backwards from", in regards to the flow direction of output to input.
         |> Seq.map getAmount
         |> Seq.fold processCommand openingAccount
+        
 
     Console.Clear()
     printfn "Closing Balance:\r\n %A" closingAccount
