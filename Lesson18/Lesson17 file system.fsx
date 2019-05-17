@@ -9,6 +9,12 @@ let getAllFilesFromDir path =
 //Rules type
 type Rule = FileInfo -> bool * string
 
+open System
+let rules :Rule list = 
+    [fun file -> file.Length <= 100L, "File size must be less than 100KB."
+     fun file -> file.Extension = ".txt", "File type must be txt."
+     fun file -> DateTime.op_LessThan(file.CreationTime, DateTime.Today), "File must have been created before today."] //No, that last rule does't make sense, I know...
+
 //Aggregator, now using reduce instead of fold; adapted from the scratchpad from lesson 18.
 let validateReduce (rules:Rule list) = 
     rules
@@ -30,3 +36,5 @@ let validateReduce (rules:Rule list) =
 //The file info collections used on lesson 17.
 let set1 = getAllFilesFromDir @"D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2\Capstone2\obj"
 let set2 = getAllFilesFromDir @"D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2\Capstone2\bin"
+
+set1 |> Seq.map (fun file -> (file.CreationTime.ToString(), DateTime.UtcNow.ToString()) , DateTime.op_LessThan(file.CreationTime, DateTime.UtcNow))
