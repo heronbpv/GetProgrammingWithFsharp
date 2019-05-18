@@ -32,3 +32,6 @@ let auditAs operationName audit operation amount account =
         audit transaction
 
     updatedAccount
+
+//let loadAccount ownerName accountId (transactions:Transaction list) = 
+    

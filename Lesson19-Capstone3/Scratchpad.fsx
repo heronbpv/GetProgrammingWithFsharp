@@ -35,3 +35,22 @@ let account =
     |> Seq.takeWhile (not << isStopCommand) //operator "<<" read as "compose left with" or "compose backwards from", in regards to the flow direction of output to input.
     |> Seq.map getAmount
     |> Seq.fold processCommand openingAccount
+
+///Recreates an account information, based on it's transaction history and owner's personal information.
+let loadAccount ownerName accountId (transactions:Transaction list) = 
+    let account = { AccountId = accountId; Balance = 0M; Owner = { Name = ownerName } }
+    transactions 
+    |> List.sortBy (fun transaction -> transaction.Timestamp) 
+    |> List.filter (fun transaction -> transaction.Accepted) //The only transactions that influence the balance are the accepted ones.
+    |> List.fold (fun acc transaction -> processCommand acc (transaction.Operation.Chars(0), transaction.Amount)) account
+
+//Testing the loadAccount
+let transactions = 
+    [ { Timestamp = DateTime.Now; Operation = "deposit"; Amount = 50M; Accepted = false; Message = "test1" } 
+      { Timestamp = DateTime.Now.AddDays(-1.0); Operation = "deposit"; Amount = 50M; Accepted = true; Message = "test1" } 
+      { Timestamp = DateTime.Now; Operation = "withdraw"; Amount = 50M; Accepted = true; Message = "test2" } 
+      { Timestamp = DateTime.Now.AddDays(-1.0); Operation = "withdraw"; Amount = 100M; Accepted = true; Message = "test3" } 
+      { Timestamp = DateTime.Now.AddDays(-3.0); Operation = "deposit"; Amount = 50M; Accepted = true; Message = "test4" } ]
+
+transactions
+|> loadAccount "heron" Guid.Empty
