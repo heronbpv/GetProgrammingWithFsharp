@@ -48,4 +48,25 @@ let handleCustomers customers =
     | [] -> failwith "No customers supplied."
     | [customer] -> printfn "Customer name: %s" customer.Name
     | [first; second] -> printfn "Balance: %d" (first.Balance + second.Balance)
-    | customers -> printfn "Customers: %d" customers.Length  //Rerunning the tests above return the same results in fsi.
+    | customers -> printfn "Customers: %d" customers.Length  //Rerunning the tests above yield the same results in fsi. Hence the shadowing.
+
+//Pattern matching on records
+let getStatus customer = 
+    match customer with
+    | { Balance = 0 } -> "Customer has empty balance!"
+    | { Name = "Isaac" } -> "This is a great customer!"
+    | { Name = name; Balance = 50 } -> sprintf "%s has a large balance!" name
+    | { Name = name } -> sprintf "%s is a normal customer" name //This is a catchall clause, because it's unconditional; it's just a bind to the name field.
+
+{ Balance = 50; Name = "Joe" } |> getStatus
+
+//Combining pattern matching on collections and records
+let getTanyaAndFriends customers =
+    match customers with
+    | [ { Name = "Tanya" }; { Balance = 25 }; _ ] as x -> sprintf "It's a match! The list has %d customers." x.Length
+    | _ -> "No match!"
+
+let theTanyaSisters = [ { Name = "Tanya"; Balance = 50 }; { Name = "Tayna"; Balance = 25 }; { Name = "Tayana"; Balance = 0 } ]
+let oneRandomCustomer = [ { Name = "Bob"; Balance = 100 } ]
+theTanyaSisters |> getTanyaAndFriends
+theTanyaSisters @ oneRandomCustomer |> getTanyaAndFriends //So the match is exacly against only a list of three customers. Very precise indeed.

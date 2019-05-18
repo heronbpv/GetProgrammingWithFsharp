@@ -17,3 +17,7 @@ A - Because, being unconstrained, they give no guarantees about the types used i
 
 3 - What sort of support does pattern matching provide to ensure correctness?
 A - Aside from the strictness of the type system itself, the exhaustive pattern matching ensures that all possible values must be considered in the clause, or you receive warnings/compile time errors.
+
+Quick check 20.3 answer:
+1 - What collection types can you not pattern match against?
+A - You can only pattern match against an Array or a List, so any other collection type besides is a no go.
