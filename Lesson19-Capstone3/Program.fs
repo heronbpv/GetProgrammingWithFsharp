@@ -3,6 +3,7 @@ module Capstone3.Program
 open System
 open Capstone3.Domain
 open Capstone3.Operations
+open Capstone3.FileRepository
 
 //Functions extracted from the main method, for use with these local functions
 let withdrawWithAudit = auditAs "withdraw" Auditing.composedLogger withdraw
@@ -35,7 +36,10 @@ let main _ =
         Console.Write "Please enter your name: "
         Console.ReadLine()
 
-    let openingAccount = { Owner = { Name = name }; Balance = 0M; AccountId = Guid.Empty } 
+    let openingAccount = 
+        findTransactionsOnDisk name
+        ||> loadAccount name
+    
     Console.WriteLine ("Current balance is R$" + openingAccount.Balance.ToString()) //Initial print of the balance
 
     let closingAccount =

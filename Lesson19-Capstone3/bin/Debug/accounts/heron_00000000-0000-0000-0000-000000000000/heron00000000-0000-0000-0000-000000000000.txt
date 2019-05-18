@@ -18,3 +18,11 @@ Transaction rejected!
 Performing a withdraw operation for R$400... Transaction not yet accepted.
 17/05/2019 20:38:51***withdraw***400***true***
 Transaction accepted! Balance is now R$113.
+18/05/2019 02:56:07***deposit***17***false***
+Performing a deposit operation for R$17... Transaction not yet accepted.
+18/05/2019 02:56:07***deposit***17***true***
+Transaction accepted! Balance is now R$130.
+18/05/2019 02:56:16***withdraw***30***false***
+Performing a withdraw operation for R$30... Transaction not yet accepted.
+18/05/2019 02:56:16***withdraw***30***true***
+Transaction accepted! Balance is now R$100.

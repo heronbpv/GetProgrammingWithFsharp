@@ -1,0 +1,8 @@
+18/05/2019 02:57:00***deposit***900***false***
+Performing a deposit operation for R$900... Transaction not yet accepted.
+18/05/2019 02:57:00***deposit***900***true***
+Transaction accepted! Balance is now R$900.
+18/05/2019 02:57:07***withdraw***500***false***
+Performing a withdraw operation for R$500... Transaction not yet accepted.
+18/05/2019 02:57:07***withdraw***500***true***
+Transaction accepted! Balance is now R$400.

@@ -29,12 +29,13 @@ let writeTransaction accountId owner (transaction:Transaction) =
 let findTransactionsOnDisk owner = 
     let path = findAccountFolder owner
     if String.IsNullOrEmpty path then
-        Guid.Empty, Seq.empty
+        Guid.Empty, List.Empty
     else
         let accountId = 
             path.Split('_').[1] //The second string of the array always contains the account id
             |> Guid.Parse
-        let transactions =             
+        let transactions =  
+            let path = buildPath(owner, accountId)           
             let text = File.ReadAllText(sprintf "%s/%s.txt" path (owner + accountId.ToString()))
             let entries = 
                 text.Split('\n') //The only viable split for my case is on the new line character, which then isolates the message component of the transaction as it's own element...
@@ -45,4 +46,4 @@ let findTransactionsOnDisk owner =
             entries
             |> Array.map Transactions.deserialize
                 
-        accountId, (transactions |> Array.toSeq)
+        accountId, (transactions |> Array.toList)
