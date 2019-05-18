@@ -21,3 +21,31 @@ let getCreditLimit customer =
 
 let limit1 = getCreditLimit ("medium", 1)
 let failure = getCreditLimit ("bad",  -1) //Will throw an exception with the last match commented.
+
+//@Now you try 20.3.1
+type Customer = { Balance:int; Name:string }
+
+//If-then-else version of the function
+let handleCustomers customers = 
+    if List.isEmpty customers then failwith "No customers supplied." //Interestingly, after the call for List.isEmpty, the compiler infers the argument to be a list...
+    elif customers.Length = 1 then printfn "Customer name: %s" (customers |> List.head).Name //... so, calling the Length property here didn't raise a compiler error. Nice!
+    elif customers.Length = 2 then printfn "Balance: %d" (customers |> List.sumBy (fun customer -> customer.Balance))
+    else printfn "Customers: %d" customers.Length
+
+//Some tests
+let customers = //A list of three customers to use on the tests below; This amount will make it easy to manipulate the length using head and tail operations.
+    [ { Balance = 10; Name = "Alice" }
+      { Balance = 20; Name = "Bob" }
+      { Balance = 30; Name = "Cali" } ]
+//let ``An empty list throws an exception`` = handleCustomers []
+let ``A list of length 1 prints the customer's name`` = customers |> List.head |> List.singleton |> handleCustomers //List.head returns the element, so I use singleton to "enlist" it. '-'
+let ``A list of length 2 prints the total balance between customers`` = customers |> List.tail |> handleCustomers //Since this list has three elements, tail returns a list of two.
+let ``A list of any other length returns the number of customers`` = handleCustomers customers 
+
+//Pattern matching version of the function. Notice how the bidding on the match clauses facilitate the overall function usage.
+let handleCustomers customers = 
+    match customers with
+    | [] -> failwith "No customers supplied."
+    | [customer] -> printfn "Customer name: %s" customer.Name
+    | [first; second] -> printfn "Balance: %d" (first.Balance + second.Balance)
+    | customers -> printfn "Customers: %d" customers.Length  //Rerunning the tests above return the same results in fsi.
