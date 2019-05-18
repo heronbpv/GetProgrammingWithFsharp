@@ -1,0 +1,9 @@
+Quick check 20.1 answers:
+1 - What restriction does F# place on returning out of loops?
+A - F# does not permit early returns in loops.
+
+2 - What is the syntax to perform for-each loops in F#?
+A - for..in..do
+
+3 - Can you use while loops in F#?
+A - Yes.
