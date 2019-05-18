@@ -4,7 +4,7 @@ open Capstone3.Operations
 open Capstone3.Domain
 
 /// Logs to the console
-let printTransaction _ accountId (transaction:Transaction) = printfn "Account %O: %s" accountId (Transactions.serialized transaction)
+let printTransaction _ accountId (transaction:Transaction) = printfn "Account %O: %s" accountId (Transactions.serialize transaction)
 
 // Logs to both console and file system
 let composedLogger = 

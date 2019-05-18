@@ -21,5 +21,5 @@ let writeTransaction accountId owner (transaction:Transaction) =
     let path = buildPath(owner, accountId)    
     path |> Directory.CreateDirectory |> ignore
     let filePath = sprintf "%s/%s.txt" path (owner + accountId.ToString())
-    let serializedTransaction = Transactions.serialized transaction
+    let serializedTransaction = Transactions.serialize transaction
     File.AppendAllText(filePath, serializedTransaction)
