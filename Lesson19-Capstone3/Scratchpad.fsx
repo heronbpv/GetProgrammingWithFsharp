@@ -42,8 +42,15 @@ let loadAccount ownerName accountId (transactions:Transaction list) =
     transactions 
     |> List.sortBy (fun transaction -> transaction.Timestamp) 
     |> List.filter (fun transaction -> transaction.Accepted) //The only transactions that influence the balance are the accepted ones.
-    |> List.fold (fun acc transaction -> processCommand acc (transaction.Operation.Chars(0), transaction.Amount)) account
-
+    |> List.fold 
+        (fun acc transaction -> 
+            let command = transaction.Operation.Chars(0)
+            match command with
+            | 'd' -> deposit transaction.Amount acc
+            | 'w' -> withdraw transaction.Amount acc
+            | _ -> acc
+        ) 
+        account
 //Testing the loadAccount
 let transactions = 
     [ { Timestamp = DateTime.Now; Operation = "deposit"; Amount = 50M; Accepted = false; Message = "test1" } 

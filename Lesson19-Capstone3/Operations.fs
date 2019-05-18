@@ -33,5 +33,20 @@ let auditAs operationName audit operation amount account =
 
     updatedAccount
 
-//let loadAccount ownerName accountId (transactions:Transaction list) = 
+///Recreates an account information, based on it's transaction history and owner's personal information.
+let loadAccount ownerName accountId (transactions:Transaction list) = 
+    let account = { AccountId = accountId; Balance = 0M; Owner = { Name = ownerName } }
+    transactions 
+    |> List.sortBy (fun transaction -> transaction.Timestamp) 
+    |> List.filter (fun transaction -> transaction.Accepted) //The only transactions that influence the balance are the accepted ones.
+    |> List.fold 
+        (fun acc transaction -> 
+            let command = transaction.Operation.Chars(0)
+            match command with
+            | 'd' -> deposit transaction.Amount acc
+            | 'w' -> withdraw transaction.Amount acc
+            | _ -> acc
+        ) 
+        account
+
     
