@@ -7,3 +7,13 @@ A - for..in..do
 
 3 - Can you use while loops in F#?
 A - Yes.
+
+Quick check 20.2 answers:
+1 - What are the limitations of switch/case?
+A - It can only match against a limited set of types (enum, string and int).
+
+2 - Why can unconstrained clauses such as if/then expressions lead to bugs?
+A - Because, being unconstrained, they give no guarantees about the types used in the predicates, it's relations, the order of the nested clauses, etc.
+
+3 - What sort of support does pattern matching provide to ensure correctness?
+A - Aside from the strictness of the type system itself, the exhaustive pattern matching ensures that all possible values must be considered in the clause, or you receive warnings/compile time errors.
