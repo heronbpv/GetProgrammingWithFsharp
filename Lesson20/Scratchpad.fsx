@@ -70,3 +70,47 @@ let theTanyaSisters = [ { Name = "Tanya"; Balance = 50 }; { Name = "Tayna"; Bala
 let oneRandomCustomer = [ { Name = "Bob"; Balance = 100 } ]
 theTanyaSisters |> getTanyaAndFriends
 theTanyaSisters @ oneRandomCustomer |> getTanyaAndFriends //So the match is exacly against only a list of three customers. Very precise indeed.
+
+//@Try this
+let generator = Random()
+let randomNumbers = List.init (generator.Next(100)) id
+
+let evalNumbersList numbersList = //Remember that cases in a match..with clause are patterns, not predicates!
+    match numbersList with
+    | [] -> "Empty list!"
+    | [_; _; _; _; _] -> "List has 5 numbers."
+    | 5::tail -> "List starts with 5"
+    | numbersList when numbersList.Length > 5 && numbersList.Length <= 90 -> "List has more than 5 and less then 90"
+    | _ -> sprintf "List constains %d numbers" numbersList.Length
+
+[5; 6; 7; 4; 3; 2] |> evalNumbersList
+[1; 2; 3; 4; 5] |> evalNumbersList
+randomNumbers |> evalNumbersList
+
+//Ported code from lesson 18, "Lesson17 file system"
+open System.IO
+///Gets the file info of all files in a directory and it's subdirectories.
+let getAllFilesFromDir path = 
+    let files = Directory.EnumerateFiles (path, "*.*", SearchOption.AllDirectories)
+    files 
+    |> Seq.map (fun file -> (new FileInfo(file)))
+
+//The file info collections used on lesson 17.
+let set1 = getAllFilesFromDir @"D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2\Capstone2\obj"
+let set2 = getAllFilesFromDir @"D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2\Capstone2\bin"
+
+let evalFilesList (files:FileInfo list) = 
+    match files with
+    | [] -> "Directory is empty"
+    | [ x ] -> sprintf "Directory only contains an %s file." x.Extension
+    | files when files.Length > 1 && files.Length <= 4 -> "Directory is small"
+    | files when (files |> List.averageBy (fun file -> float (file.Length))) >= 1000.0 -> 
+        sprintf "This directory is getting fat... weigth: %d" (files |> List.sumBy (fun file -> file.Length))
+    | _ -> "Directory is large"
+
+set1 |> List.ofSeq |> evalFilesList
+set2 |> List.ofSeq |> evalFilesList
+
+//A new set
+let set3 = getAllFilesFromDir @"D:\Programacao\GetProgrammingWithFsharp\Lesson19-Capstone3"
+set3 |> List.ofSeq |> evalFilesList
