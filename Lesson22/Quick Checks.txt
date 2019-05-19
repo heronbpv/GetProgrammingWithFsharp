@@ -11,3 +11,10 @@ A - Yes, although it's less likely if you stick with the F# types (and don't dea
 
 2 - How should you safely dereference a value that’s wrapped in an option?
 A - By pattern matching over it.
+
+Quick check 22.3 answers:
+1 - When should you use Option.map rather than an explicit pattern match?
+A - When you only have two cases on the pattern match, for some and none, and the none case returns none.
+
+2 - What’s the difference between Option.map and bind?
+A - Map only lifts the result value to the world of options, by applying the mapping function, whereas bind flattens chaining option types (e.g. Option<Option<int>> turns into Option<int>) after applying the binding function.
