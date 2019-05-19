@@ -1,0 +1,6 @@
+Quick check 22.1 answers:
+1 - Why can’t C# prevent obvious null references?
+A - Because objects in C# can be assigned null at any time. There's no way to treat a class as non-nullable.
+
+2 - How does the nullable type improve matters when working with data that might be missing?
+A - By encapsulating the value, and provinding an API over it to verify it's nullability.
