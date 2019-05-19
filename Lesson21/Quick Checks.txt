@@ -7,3 +7,10 @@ A - Pattern matching.
 
 3 - Can you add new cases to a DU later in your code?
 A - No, DUs are closed and fixed at compile time. (Book solution.)
+
+Quick check 21.2 answers:
+1 - How do you model shared fields in a discriminated union?
+A - You don't, you create a record with said fields and the DU type instead.
+
+2 - Can you create one discriminated union with another one?
+A - Yes, you can nest DUs, but the nested ones must be declared beforehand, for their type to be used in the parent DU.
