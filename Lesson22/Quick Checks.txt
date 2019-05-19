@@ -18,3 +18,7 @@ A - When you only have two cases on the pattern match, for some and none, and th
 
 2 - What’s the difference between Option.map and bind?
 A - Map only lifts the result value to the world of options, by applying the mapping function, whereas bind flattens chaining option types (e.g. Option<Option<int>> turns into Option<int>) after applying the binding function.
+
+Quick check 22.4 answer:
+1 - Why are collection try functions safer to use than LINQ’s orDefault methods?
+A - Because the return options instead of nulls.
