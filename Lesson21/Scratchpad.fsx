@@ -31,3 +31,20 @@ let seek disk =
 
 let seekSdd = seek ssd1
 let seekMMC = seek (mmc1 3)
+
+//@Now you try 21.2.2
+let describe disk = 
+    match disk with
+    | HardDisk (5400, _) -> "I'm a slow hard disk."
+    | HardDisk (_, 7) -> "I have 7 spindles!"
+    | HardDisk _ -> "I'm a hard disk."
+    | MMC 1 -> "I have only 1 pin."
+    | MMC pins when pins < 5 -> "I'm an MMC with a few pins."
+    | MMC pins -> sprintf "I'm a MMC with %d pins." pins
+    | SolidState -> "I'm a newfangled SSD."
+
+//Testing it:
+let describeSsd = describe ssd1
+let describeMmc1 = describe (mmc1 1)
+let describeMmc2 = describe mmc2
+let describeHardDisk1 = describe hardDisk1
