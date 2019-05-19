@@ -85,3 +85,27 @@ let myEvolvedPc =
             DiskData = MMC (RsMmc, 4) } ] }
 
 printfn "%A" myEvolvedPc
+
+//Enums
+type Printer =
+    | Inkjet = 0
+    | Laserjet = 1
+    | DotMatrix = 2
+    | SomeNewTypeAddedLater = 3
+
+let describePrinter = 
+    let knownPrinters x = //Inner function, to list which values of the enum where known at the time of the function creation.
+        x = Printer.Inkjet
+        && x = Printer.Laserjet
+        && x = Printer.DotMatrix
+    //Interestingly enough, the compiler only recognized the instances of the enum once I fully qualified each case... 
+    //So it has this difference going on between them and DUs as well.
+    function 
+    | Printer.Inkjet -> sprintf "Enum value is %s" (Printer.Inkjet.ToString())
+    | Printer.Laserjet -> sprintf "Enum value is %s" (Printer.Laserjet.ToString())
+    | Printer.DotMatrix -> sprintf "Enum value is %s" (Printer.DotMatrix.ToString())
+    //The catchall case. Done this way, the compiler will complain of incomplete cases for enums, but the match with will never fail at runtime after adding a new enum later on.
+    | x when not <| knownPrinters x -> sprintf "Undefined enum value %A, defaulting to %s" x (Printer.Inkjet.ToString()) //Uncomment to test what happens when the catch all doesn't exist.
+    //Wonder which one is better in this case: failing at runtime thanks to the new enum value, or returning a default value after meeting a new entry. No compiler savior in any case...
+describePrinter Printer.Inkjet
+describePrinter Printer.SomeNewTypeAddedLater
