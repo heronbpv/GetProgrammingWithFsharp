@@ -4,3 +4,10 @@ A - Because objects in C# can be assigned null at any time. There's no way to tr
 
 2 - How does the nullable type improve matters when working with data that might be missing?
 A - By encapsulating the value, and provinding an API over it to verify it's nullability.
+
+Quick check 22.2 answers:
+1 - Can you get null reference exceptions in F#?
+A - Yes, although it's less likely if you stick with the F# types (and don't deal with raw strings, e.g.)
+
+2 - How should you safely dereference a value that’s wrapped in an option?
+A - By pattern matching over it.
