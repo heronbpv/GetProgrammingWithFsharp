@@ -104,8 +104,13 @@ let describePrinter =
     | Printer.Inkjet -> sprintf "Enum value is %s" (Printer.Inkjet.ToString())
     | Printer.Laserjet -> sprintf "Enum value is %s" (Printer.Laserjet.ToString())
     | Printer.DotMatrix -> sprintf "Enum value is %s" (Printer.DotMatrix.ToString())
-    //The catchall case. Done this way, the compiler will complain of incomplete cases for enums, but the match with will never fail at runtime after adding a new enum later on.
+    //A conditional catchall case. Done this way, the compiler will complain of incomplete cases for enums, but the match with will never fail at runtime after adding a new enum later on.
     | x when not <| knownPrinters x -> sprintf "Undefined enum value %A, defaulting to %s" x (Printer.Inkjet.ToString()) //Uncomment to test what happens when the catch all doesn't exist.
     //Wonder which one is better in this case: failing at runtime thanks to the new enum value, or returning a default value after meeting a new entry. No compiler savior in any case...
-describePrinter Printer.Inkjet
-describePrinter Printer.SomeNewTypeAddedLater
+
+let ``Result for Inkjet`` = describePrinter Printer.Inkjet
+let ``Result for SomeNewTypeAddedLater`` = describePrinter Printer.SomeNewTypeAddedLater
+
+let mutable x = Printer()
+Printer.TryParse("9", &x)
+let ``Result for some arbitrary int value`` = describePrinter x //Generating a unknown value for the enum, then passing it to the function

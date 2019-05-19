@@ -14,3 +14,10 @@ A - You don't, you create a record with said fields and the DU type instead.
 
 2 - Can you create one discriminated union with another one?
 A - Yes, you can nest DUs, but the nested ones must be declared beforehand, for their type to be used in the parent DU.
+
+Quick check 21.3 answers:
+1 - When should you not use a discriminated union?
+A - When the need for extensible, easily pluggable subtypes that can be added dynamically outvalues the correctness afforded by DUs.
+
+2 - Why do you need to always place a wildcard handle for enums?
+A - Because the type system has no way of acertain all possible cases for them, since their underlying type is int. So a catchall is needed to avoid runtime errors thanks to new enum values that were later on, but not treated in the match with clause, or to avoid incorrect ints being cast to the enum type somehow.
