@@ -61,3 +61,9 @@ let scoreMap = tryFindCustomer 10 |> Option.map getSafetyScore //Testing with ma
 let test1 = Some 5 |> Option.filter (fun x -> x > 5)
 let test2 = Some 5 |> Option.filter (fun x -> x = 5)
 
+//@Now you try 22.4.2
+let tryLoadCustomer cId =
+    if cId > 2 && cId < 7 then Some (sprintf "Customer %d" cId)
+    else None
+let customerIds = [1..10]
+customerIds |> List.choose tryLoadCustomer
