@@ -19,3 +19,15 @@ let hardDisk2 = HardDisk (RPM = 250, Platters = 7)//You can see, and reference, 
 let mmc1 = MMC //This returns a function, expecting the argument
 let mmc2 = mmc1 5 //This is a mmc DU case, with 5 pins. Notice that the named argument' name on the case is lost in intellisense for the function derived.
 let ssd1 = SolidState
+
+let seek disk =
+    match disk with
+    | HardDisk (5400, 5) -> "Seeking very slowly!"
+    | HardDisk (rpm, 7) -> sprintf "I have 7 spindles and RPM %d!" rpm
+    | HardDisk _ -> "Seeking loudly at a reasonable speed!"
+    | MMC 3 -> "Seeking. I have 3 pins!"
+    | MMC _ -> "Seeking quietly but slowly."
+    | SolidState -> "Already found it!"
+
+let seekSdd = seek ssd1
+let seekMMC = seek (mmc1 3)
