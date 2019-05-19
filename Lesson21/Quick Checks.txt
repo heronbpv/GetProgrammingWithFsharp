@@ -1,0 +1,9 @@
+Quick check 21.1 answers:
+1 - What is the OO equivalent of discriminated unions?
+A - Class hierarchies.
+
+2 - Which language feature in F# do you use to test which case of a DU a value is?
+A - Pattern matching.
+
+3 - Can you add new cases to a DU later in your code?
+A - No, DUs are closed and fixed at compile time. (Book solution.)
