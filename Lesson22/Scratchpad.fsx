@@ -67,3 +67,54 @@ let tryLoadCustomer cId =
     else None
 let customerIds = [1..10]
 customerIds |> List.choose tryLoadCustomer
+
+//@Try this 22
+open System
+open System.IO
+let fileLoader path = 
+    if File.Exists path then Some (FileInfo(path))
+    else None
+
+let displayFileInfo path = 
+    let optionFile = fileLoader path
+    match optionFile with
+    | Some file -> sprintf "File name: %s;\r\n Size: %d; Parent: %s; Extension: %s" file.Name file.Length file.DirectoryName file.Extension
+    | None -> "No file found."
+
+displayFileInfo @"D:\cyruz\Livros\Oficiais\[White Paper]Machine Learning at Microsoft with ML.NET.pdf"
+displayFileInfo @"D:\Programacao\GetProgrammingWithFsharp\Lesson22\Quick Checks.txt"
+
+//Code ported from the Try this 18 Lesson18 exercise, file "Lesson17 file system.fsx". Original comments removed for brevity.
+let getAllFilesFromDir path = 
+    let files = Directory.EnumerateFiles (path, "*.*", SearchOption.AllDirectories)
+    files 
+    |> Seq.map (fun file -> (new FileInfo(file)))
+type Rule = FileInfo -> bool * string option //Rule type updated to accept string option. All modifications necessary cascade from this change.
+let rules :Rule list = 
+    [fun file -> file.Length <= 800000L, Some "File size must be less than 800.000 bytes."
+     fun file -> file.Extension.Equals(".xml", StringComparison.OrdinalIgnoreCase), Some "File type must be xml."
+     fun file -> DateTime.op_LessThan(file.CreationTime, DateTime.Today), Some "File must have been created before today."]
+let validateReduce (rules:Rule list) = 
+    rules
+    |> List.reduce (fun rule1 rule2 -> 
+                       fun file -> 
+                        if file |> isNull then
+                            false, Some "Empty string"
+                        else 
+                            let passed, error = rule1 file
+                            if passed then
+                                let passed, error = rule2 file
+                                if passed then
+                                    true, None
+                                else
+                                    false, error
+                            else
+                                false, error)
+let set1 = getAllFilesFromDir @"D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2\Capstone2\obj"
+let set2 = getAllFilesFromDir @"D:\Programacao\GetProgrammingWithFsharp\Lesson14-Capstone2\Capstone2\bin"
+let filter = validateReduce rules >> fst 
+
+//Tests
+let filteredSet1 = set1 |> Seq.filter filter |> List.ofSeq
+let filteredSet2 = set2 |> Seq.filter filter |> List.ofSeq
+//let nullSet = null |> Seq.filter filter |> List.ofSeq  //Results are the same as before.
