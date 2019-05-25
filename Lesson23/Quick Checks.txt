@@ -1,0 +1,6 @@
+Quick check 23.1 answers:
+1 - What’s the benefit of single-case DUs over raw values?
+A - It makes them distinct and therefore impossible to mix and match, since the compiler will enforce it's correct usage.
+
+2 - When working with single-case DUs, when should you unwrap values?
+A - During pattern matching, right before the inner value is need, e.g. to make a comparison.
