@@ -18,10 +18,13 @@ type ContactDetails =
 
 type Customer = 
     { CustomerId:CustomerId
-      ContactDetails:ContactDetails }
+      PrimaryContactDetails:ContactDetails
+      SecondaryContactDetails:ContactDetails option }
 
-let createCustomer customerId contactDetails = 
+let createCustomer customerId primaryContact secondaryContact = 
     { CustomerId = customerId
-      ContactDetails = contactDetails }
+      PrimaryContactDetails = primaryContact
+      SecondaryContactDetails = secondaryContact }
 
-let customer = createCustomer (CustomerId "C-123") (Email "nicki@myemail.com")
+let customer = createCustomer (CustomerId "C-123") (Email "nicki@myemail.com") None
+let another = createCustomer (CustomerId "C-456") (Email "josy@anotheremail.com") (Some (Telephone "029-293-23"))
