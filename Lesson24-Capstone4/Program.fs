@@ -4,7 +4,7 @@ open System
 open Capstone4.Domain
 open Capstone4.Operations
 
-let withdrawWithAudit = auditAs "withdraw" Auditing.composedLogger withdraw
+let withdrawWithAudit = auditAs "withdraw" Auditing.composedLogger withdrawSafe
 let depositWithAudit = auditAs "deposit" Auditing.composedLogger deposit
 let tryLoadAccountFromDisk = FileRepository.tryFindTransactionsOnDisk >> Option.map (Operations.loadAccount) //Lifting loadAccount to option to work with findTransactionsOnDisk
 
@@ -48,14 +48,24 @@ module UserInput =
 
 [<EntryPoint>]
 let main _ =
+    //Since extracting the balance is common, this function has be isolated for reuse.
+    let accountBalance = function
+            | InCredit (CreditAccount account) -> 
+                account.Balance
+            | Overdrawn account -> 
+                account.Balance
+    
+    let overdrawnWarning account = if (accountBalance account) < 0M then printfn "Your account is overdrawn!"
+
     let openingAccount =
         Console.Write "Please enter your name: "
         let owner = Console.ReadLine() 
         match tryLoadAccountFromDisk owner with
         | Some account -> account
-        | None -> { Balance = 0M; AccountId = Guid.NewGuid(); Owner = { Name = owner } }
+        | None -> InCredit( CreditAccount( { Balance = 0M; AccountId = Guid.NewGuid(); Owner = { Name = owner } } ))
     
-    printfn "Current balance is £%M" openingAccount.Balance
+    printfn "Opening balance is R$%M" (accountBalance openingAccount)
+    overdrawnWarning openingAccount
 
     let processCommand account (command, amount) =
         printfn ""
@@ -63,9 +73,17 @@ let main _ =
 //            if command = 'd' then account |> depositWithAudit amount
 //            else account |> withdrawWithAudit amount
             match command with
-            | Withdraw -> account |> withdrawWithAudit amount
-            | Deposit -> account |> depositWithAudit amount
-        printfn "Current balance is R$%M" account.Balance
+            | Withdraw -> 
+                match account with
+                | Overdrawn _ ->
+                    printfn "You cannot withdraw funds as your account is overdrawn!"
+                    account
+                | _ ->
+                    account |> withdrawWithAudit amount
+            | Deposit -> 
+               account |> depositWithAudit amount
+        printfn "Current balance is R$%M" (accountBalance account)
+        overdrawnWarning account
         account
 
     let closingAccount =
