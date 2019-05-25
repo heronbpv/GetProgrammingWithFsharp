@@ -28,3 +28,18 @@ let createCustomer customerId primaryContact secondaryContact =
 
 let customer = createCustomer (CustomerId "C-123") (Email "nicki@myemail.com") None
 let another = createCustomer (CustomerId "C-456") (Email "josy@anotheremail.com") (Some (Telephone "029-293-23"))
+
+type GenuineCustomer = GenuineCustomer of Customer
+
+let validateCustomer = 
+    match customer.PrimaryContactDetails with
+    | Email e when e.EndsWith "SuperCorp.com" ->
+        Some (GenuineCustomer customer)
+    | Address _ 
+    | Telephone _ -> //Albeit the situation seems the same, since a when clause is in use above, it's not possible to fall through to the email case with these two.
+        Some (GenuineCustomer customer)
+    | Email _ -> None
+
+let sendWelcomeEmail (GenuineCustomer customer) = //This all but guarantees that the only customers who can be sent welcome emails are the validated ones.
+    printfn "Hello, %A, and welcome to our site" customer.CustomerId
+
