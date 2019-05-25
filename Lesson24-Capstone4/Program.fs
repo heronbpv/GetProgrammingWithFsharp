@@ -37,10 +37,14 @@ module UserInput =
             yield Console.ReadKey().KeyChar
             Console.WriteLine() }
     
-    let getAmount command =
+    let tryGetAmount command =
         Console.WriteLine()
         Console.Write "Enter Amount: "
-        command, Console.ReadLine() |> Decimal.Parse
+        let amount = Console.ReadLine() |> Decimal.TryParse //Tentativelly converting the value, safely returns if it fails.
+        match amount with
+        | true, amount -> Some (command, amount)
+        | false, _ -> None
+        //command, Console.ReadLine() |> Decimal.Parse
 
 [<EntryPoint>]
 let main _ =
@@ -66,7 +70,7 @@ let main _ =
         |> Seq.choose tryParseCommand
         |> Seq.takeWhile (not << ((=) Exit))
         |> Seq.choose tryGetBankOperation
-        |> Seq.map getAmount
+        |> Seq.choose tryGetAmount
         |> Seq.fold processCommand openingAccount
     
     printfn ""
