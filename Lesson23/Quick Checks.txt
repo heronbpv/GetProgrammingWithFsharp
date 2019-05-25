@@ -14,3 +14,10 @@ A - You can make illegal states unrepresentable by the code, which eliminates pl
 
 3 - When should you wrap up raw values into single-case discriminated unions?
 A - Pretty much ASAP.
+
+Quick check 23.3 answers:
+1 - What benefit does a result provide over an exception?
+A - Mostly, the ability to reason about the error, and then the enforced rule of having to act on it upfront.
+
+2 - How should you convert code that throws exceptions into one that returns a result?
+A - By passing the exception type as the type of the error case of the Result type, in a try catch expression.
