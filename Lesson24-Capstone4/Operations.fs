@@ -44,9 +44,10 @@ let loadAccount (owner, accountId, transactions) =
     |> Seq.sortBy(fun txn -> txn.Timestamp)
     |> Seq.fold(fun account txn ->
         let operation = tryParseBankOperation txn.Operation
-        match operation |> Option.get with
-        | Withdraw -> account |> withdraw txn.Amount
-        | Deposit -> account |> deposit txn.Amount
+        match operation with
+        | Some Withdraw -> account |> withdraw txn.Amount
+        | Some Deposit -> account |> deposit txn.Amount
+        | None -> account //In case of an illegal operation, ignore it for now.
         
         (*if txn.Operation = "withdraw" then account |> withdraw txn.Amount
         else account |> deposit txn.Amount*)) openingAccount
