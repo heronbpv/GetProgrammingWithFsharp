@@ -10,8 +10,22 @@ let loadAccountFromDisk = FileRepository.findTransactionsOnDisk >> Operations.lo
 
 [<AutoOpen>]
 module CommandParsing =
-    let isValidCommand cmd = [ 'd'; 'w'; 'x' ] |> List.contains cmd
-    let isStopCommand = (=) 'x'
+    //These two functions are now unnecessary.   
+    //let isValidCommand cmd = List.map tryParseCommand cmd
+    // isStopCommand = (=) 'x'
+    
+    ///Represents the commands avaiable to the user.
+    type Command = 
+        | Withdraw
+        | Deposit
+        | Exit
+
+    ///Parses a given char to one of the valid commands. Values accepted: (w)ithdraw, (d)eposit, e(x)it
+    let tryParseCommand = function
+        | 'w' -> Some Withdraw
+        | 'd' -> Some Deposit
+        | 'x' -> Some Exit
+        | _   -> None
 
 [<AutoOpen>]
 module UserInput =
@@ -37,15 +51,19 @@ let main _ =
     let processCommand account (command, amount) =
         printfn ""
         let account =
-            if command = 'd' then account |> depositWithAudit amount
-            else account |> withdrawWithAudit amount
-        printfn "Current balance is £%M" account.Balance
+//            if command = 'd' then account |> depositWithAudit amount
+//            else account |> withdrawWithAudit amount
+            match command with
+            | Withdraw -> account |> withdrawWithAudit amount
+            | Deposit -> account |> depositWithAudit amount
+            | Exit -> account
+        printfn "Current balance is R$%M" account.Balance
         account
 
     let closingAccount =
         commands
-        |> Seq.filter isValidCommand
-        |> Seq.takeWhile (not << isStopCommand)
+        |> Seq.choose tryParseCommand
+        |> Seq.takeWhile (not << ((=) Exit))
         |> Seq.map getAmount
         |> Seq.fold processCommand openingAccount
     

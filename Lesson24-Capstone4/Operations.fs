@@ -3,6 +3,16 @@ module Capstone4.Operations
 open System
 open Capstone4.Domain
 
+///Represents the possible bank operations supported by the system.
+type BankOperation = 
+    | Withdraw
+    | Deposit
+
+let tryParseBankOperation = function
+    | "withdraw" -> Some Withdraw
+    | "deposit" -> Some Deposit
+    | _ -> None
+
 /// Withdraws an amount of an account (if there are sufficient funds)
 let withdraw amount account =
     if amount > account.Balance then account
@@ -29,9 +39,14 @@ let auditAs operationName audit operation amount account =
 /// Creates an account from a historical set of transactions
 let loadAccount (owner, accountId, transactions) =
     let openingAccount = { AccountId = accountId; Balance = 0M; Owner = { Name = owner } }
-
+    
     transactions
     |> Seq.sortBy(fun txn -> txn.Timestamp)
     |> Seq.fold(fun account txn ->
-        if txn.Operation = "withdraw" then account |> withdraw txn.Amount
-        else account |> deposit txn.Amount) openingAccount
+        let operation = tryParseBankOperation txn.Operation
+        match operation |> Option.get with
+        | Withdraw -> account |> withdraw txn.Amount
+        | Deposit -> account |> deposit txn.Amount
+        
+        (*if txn.Operation = "withdraw" then account |> withdraw txn.Amount
+        else account |> deposit txn.Amount*)) openingAccount
