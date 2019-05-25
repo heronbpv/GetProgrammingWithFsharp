@@ -4,3 +4,13 @@ A - It makes them distinct and therefore impossible to mix and match, since the 
 
 2 - When working with single-case DUs, when should you unwrap values?
 A - During pattern matching, right before the inner value is need, e.g. to make a comparison.
+
+Quick check 23.2 answers:
+1 - Why don’t you create wrapper types such as single-case DUs in C#?
+A - Because of the boilerplate involved in creating the necessary classes.
+
+2 - What benefit do you get from using single-case discriminated unions as marker types?
+A - You can make illegal states unrepresentable by the code, which eliminates plenty of bugs and unnecessary testing bloat.
+
+3 - When should you wrap up raw values into single-case discriminated unions?
+A - Pretty much ASAP.
