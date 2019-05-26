@@ -37,4 +37,27 @@ type TestingFSPowerTools() = //The trick is to move the caret to the start o the
         member this.Equals(x, y) = failwith "Not implemented yet"
         member this.GetHashCode(obj) = failwith "Not implemented yet"
         
-        
+//Object expressions
+let pComparer3 = //If all you want is to use the interface, try this instead.
+    { new IComparer<Person> with
+          member this.Compare(x, y) = x.Name.CompareTo(y.Name) }
+
+pComparer3.Compare(simon, Person "Fred")
+
+pComparer3.GetType().Equals(pComparer)
+pComparer3.GetType().Equals(typeof<IComparer<Person>>)
+pComparer.GetType().Equals(typeof<IComparer<Person>>)
+pComparer.GetType().Equals(pComparer2)//Interestingly, none of these returns true, even the ones that seemed obviously true
+
+//Nulls, nullables and options
+open System
+
+let blank:string = null
+let name = "Alice"
+let number = Nullable 10
+
+let blankAsOption = blank |> Option.ofObj
+let nameAsOption = name |> Option.ofObj
+let numberAsOption = number |> Option.ofNullable
+//let numberAsOption = number |> Option.ofObj //This generates a compiler error, since Nullable<int> does not support the value null, as ironic as it may be...
+let unsafeName = Some "Fred" |> Option.toObj
