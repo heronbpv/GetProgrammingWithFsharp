@@ -1,0 +1,9 @@
+Quick check 26.1 answers:
+1 - Can you use NuGet packages with F# projects?
+A - Yes, they work just as any .NET code.
+
+2 - What do you need to be aware of when calling #load on F# files?
+A - That you must also load all references and dependences, in order!, of said file on the script, before being able to use it.
+
+3 - How can you make life easier when referencing assemblies and files?
+A - By using the #I directive to simplify pathing, or even better, if on visual studio 2015 and in an F# project, use the "Generate References for F# Interactive" option, from the F# Power Tools plugin, to take care of them for you, them reference the auto generated (and auto updated!) load-project-debug.fsx script using the #load directive in your script.
