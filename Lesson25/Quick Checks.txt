@@ -7,3 +7,13 @@ A - BCL code, NuGet packages on any .NET compatible language, sibling projects.
 
 3 - What kind of type is not well supported in F#?
 A - Dynamic types.
+
+Quick check 25.2 answers:
+1 - Can you debug across languages?
+A - Yes.
+
+2 - Can you go to a definition across languages?
+A - No. When trying to use that functionality, you'll be shown a view of the avaiable metadata in your native language instead.
+
+3 - How do you reference a library from within a script?
+A - With the #r directive.
