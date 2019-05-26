@@ -17,3 +17,10 @@ A - No. When trying to use that functionality, you'll be shown a view of the ava
 
 3 - How do you reference a library from within a script?
 A - With the #r directive.
+
+Quick check 25.3 answers:
+1 - What is an object expression?
+A - It's a f# expression that evaluates to an object implementing a certain interface, thus bypassing the need to create an class just so you could use a certain interface.
+
+2 - How do you convert between a nullable and an option in F#?
+A - Using the Option module functions ofNullable and toNullable. 
