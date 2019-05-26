@@ -1,0 +1,9 @@
+Quick check 25.1 answers:
+1 - Can you share F# and C# projects in the same solution?
+A - Yes, of course! As was planned from the beginnings of .NET.
+
+2 - Name some types of assets that you can reference from an F# solution.
+A - BCL code, NuGet packages on any .NET compatible language, sibling projects.
+
+3 - What kind of type is not well supported in F#?
+A - Dynamic types.
