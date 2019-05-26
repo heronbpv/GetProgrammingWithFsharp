@@ -7,3 +7,10 @@ A - That you must also load all references and dependences, in order!, of said f
 
 3 - How can you make life easier when referencing assemblies and files?
 A - By using the #I directive to simplify pathing, or even better, if on visual studio 2015 and in an F# project, use the "Generate References for F# Interactive" option, from the F# Power Tools plugin, to take care of them for you, them reference the auto generated (and auto updated!) load-project-debug.fsx script using the #load directive in your script.
+
+Quick check 26.2 answers:
+1 - Why can it be difficult to work with NuGet packages from F# scripts when using the NuGet tool?
+A - Because it includes the package versions as part of the path, which will break all scripts depending on said paths after an update references operation, if these versions change.
+
+2 - What does the paket.dependencies file contain?
+A - A list with all the packages referenced by the solution, including information about the minimum version required and if the source is prerelease.
