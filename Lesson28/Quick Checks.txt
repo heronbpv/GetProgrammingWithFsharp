@@ -7,3 +7,13 @@ A - To increase the interoperabilty with other languages and domains while keepi
 
 3 - Can you name a scenario for which C# might be a better fit than F#?
 A - GUI programming for Windows (e.g. WinForms and WPF), since the best support for these technologies is in c#.
+
+Quick check 28.2 answers:
+1 - Why are expressions useful from a development and testing point of view?
+A - Because of their repeatability and predictability.
+
+2 - Are there any restrictions on exposing C#-compatible events from F#?
+A - They must be marked with the [<CLIEvent>] attribute. Also, you can't expose C#-compatible events from an F# module, possibly because modules are static classes for C#.
+
+3 - Is it easier to move from expression- to statement-based code or vice versa?
+A - It'a easier from expression to statement-based.
