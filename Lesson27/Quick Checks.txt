@@ -1,0 +1,6 @@
+Quick check 27.1 answers:
+1 - How are records represented in C#?
+A - As classes whose only constructor mandates all the properties be informed upfront.
+
+2 - Why are discriminated unions sometimes difficult to reason about in C#?
+A - Mostly cause of a lack of proper pattern matching facilities. Since a DU is represented as a class hierarchy in C#, but it does not let you cast implicitly between it's types, it also demands that, in order to access it's members, the caller cast it to the correct type first (the necessary facilities are presented in the base DU class, in the form of isType methods).
