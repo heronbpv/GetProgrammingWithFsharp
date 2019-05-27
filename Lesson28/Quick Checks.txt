@@ -1,0 +1,9 @@
+Quick check 28.1 answers:
+1 - What features from the F# type system might be missing for simpler domains such as JSON or CSV?
+A - Immutability and Options.
+
+2 - Why should you consider having a rich internal, and simpler external, domain?
+A - To increase the interoperabilty with other languages and domains while keeping the strenghts of the language available for use at non-boundary parts of the system.
+
+3 - Can you name a scenario for which C# might be a better fit than F#?
+A - GUI programming for Windows (e.g. WinForms and WPF), since the best support for these technologies is in c#.
