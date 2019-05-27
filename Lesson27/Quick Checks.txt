@@ -11,3 +11,10 @@ A - As static classes.
 
 2 - Can you use F#-declared curried functions in C#?
 A - Yes, but the experience is a terrifying nightmare.
+
+Quick check 27.3 answers:
+1 - What do tuples render as in C#?
+A - As the System.Tuple type.
+
+2 - What is the purpose of the [<CLIMutable>] attribute?
+A - To change the way an f# record IL is generated, enabling mutation through a default constructor and properties with getters and setters.
