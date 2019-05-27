@@ -26,6 +26,15 @@ namespace CSharpApp
             var engineSize = bike.EngineSize;
 
             Console.WriteLine("Motorbike -> Name {0}; Engine Size {1}", name, engineSize);
+
+            var funcCar = Functions.CreateCar(6, "ATV", 2.0, 6.0);
+
+            Console.WriteLine("funcCar -> Brand {0}; Wheels {1}; Dimension(x, y) ({2}, {3})", funcCar.Brand, funcCar.Wheels, funcCar.Dimensions.Item1, funcCar.Dimensions.Item2);
+
+            //Each invoke is an argument being passed, and in the proper order.
+            var partFuncCar = Functions.CreateFourWheeledCar.Invoke("Disfunctional").Invoke(2.1).Invoke(2.1);
+
+            Console.WriteLine("desfuncCar -> Brand {0}; Wheels {1}; Dimension(x, y) ({2}, {3})", partFuncCar.Brand, partFuncCar.Wheels, partFuncCar.Dimensions.Item1, partFuncCar.Dimensions.Item2);
         }
     }
 }
