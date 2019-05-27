@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpCode", "FSharpCode\FSharpCode.fsproj", "{D72C7B2C-3F5B-4472-878D-EF0038411E29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpApp", "CSharpApp\CSharpApp.csproj", "{2F2AA1B8-18C5-496E-8DD9-3032BF733A80}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D72C7B2C-3F5B-4472-878D-EF0038411E29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D72C7B2C-3F5B-4472-878D-EF0038411E29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D72C7B2C-3F5B-4472-878D-EF0038411E29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D72C7B2C-3F5B-4472-878D-EF0038411E29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F2AA1B8-18C5-496E-8DD9-3032BF733A80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F2AA1B8-18C5-496E-8DD9-3032BF733A80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F2AA1B8-18C5-496E-8DD9-3032BF733A80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F2AA1B8-18C5-496E-8DD9-3032BF733A80}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
