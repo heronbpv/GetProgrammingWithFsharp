@@ -1,5 +1,4 @@
-namespace Capstone5.Domain
-
+namespace Capstone5.Domain //Domain is set as a namespace instead of a module, so it could be referenced using the "using" keyword from c#.
 open System
 
 type BankOperation = Deposit | Withdraw
