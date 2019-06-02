@@ -7,23 +7,33 @@ open System
 
 /// Loads an account from disk. If no account exists, an empty one is automatically created.
 let LoadAccount (customer:Customer) : RatedAccount =
-    InCredit(CreditAccount { AccountId = Guid.NewGuid()
-                             Balance = 0M
-                             Owner = customer })
+    customer.Name
+    |> (FileRepository.tryFindTransactionsOnDisk >> Option.map Operations.loadAccount)
+    |> defaultArg 
+    <| InCredit(CreditAccount { AccountId = Guid.NewGuid(); Balance = 0M; Owner = customer })
 
 /// Deposits funds into an account.
 let Deposit (amount:decimal) (customer:Customer) : RatedAccount =
-    InCredit(CreditAccount { AccountId = Guid.NewGuid()
-                             Balance = 0M
-                             Owner = customer })
+    let ratedAccount = LoadAccount customer
+    let accountId = ratedAccount.GetField (fun a -> a.AccountId)
+    let owner = ratedAccount.GetField(fun a -> a.Owner)
+    auditAs "deposit" Auditing.composedLogger deposit amount ratedAccount accountId owner
 
 /// Withdraws funds from an account that is in credit.
 let Withdraw (amount:decimal) (customer:Customer) : RatedAccount =
-    InCredit(CreditAccount { AccountId = Guid.NewGuid()
-                             Balance = 0M
-                             Owner = customer })
+    let account = LoadAccount customer
+    match account with
+    | InCredit ((CreditAccount account) as creditAccount) -> 
+        auditAs "withdraw" Auditing.composedLogger withdraw amount creditAccount account.AccountId account.Owner
+    | Overdrawn _ -> 
+        account
+
                                  
 /// Loads the transaction history for an owner. If no transactions exist, returns an empty sequence.
 let LoadTransactionHistory(customer:Customer) : Transaction seq =
-    Seq.empty
+    customer.Name
+    |> FileRepository.tryFindTransactionsOnDisk
+    |> Option.map (fun (_, _, txn) -> txn)
+    |> defaultArg
+    <| Seq.empty
 
