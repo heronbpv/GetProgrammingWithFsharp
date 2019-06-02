@@ -19,13 +19,16 @@ type RatedAccount =
         | Overdrawn account -> getter account
 
 module Transactions =
+    open Newtonsoft.Json
     /// Serializes a transaction
     let serialize transaction =
-        sprintf "%O***%s***%M" transaction.Timestamp transaction.Operation transaction.Amount
+        //sprintf "%O***%s***%M" transaction.Timestamp transaction.Operation transaction.Amount
+        JsonConvert.SerializeObject transaction
     
     /// Deserializes a transaction
     let deserialize (fileContents:string) =
-        let parts = fileContents.Split([|"***"|], StringSplitOptions.None)
-        { Timestamp = DateTime.Parse parts.[0]
-          Operation = parts.[1]
-          Amount = Decimal.Parse parts.[2] }
+//        let parts = fileContents.Split([|"***"|], StringSplitOptions.None)
+//        { Timestamp = DateTime.Parse parts.[0]
+//          Operation = parts.[1]
+//          Amount = Decimal.Parse parts.[2] }
+        JsonConvert.DeserializeObject<Transaction> fileContents
