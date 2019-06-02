@@ -17,6 +17,10 @@ type RatedAccount =
         match this with
         | InCredit (CreditAccount account) -> getter account
         | Overdrawn account -> getter account
+    member this.Balance = 
+        match this with
+        | InCredit (CreditAccount account) -> account.Balance
+        | Overdrawn account -> account.Balance
 
 module Transactions =
     open Newtonsoft.Json
