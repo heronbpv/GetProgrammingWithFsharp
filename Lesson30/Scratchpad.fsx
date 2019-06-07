@@ -29,7 +29,7 @@ data
 #r @"Google.DataTable.Net.Wrapper\lib\Google.DataTable.Net.Wrapper.dll"
 
 open XPlot.GoogleCharts
-//Question: Which three teams won at home the most over the whole season?
+//@Question: Which three teams won at home the most over the whole season?
 data
 |> Seq.filter (fun game -> game.``Full Time Home Goals`` > game.``Full Time Away Goals``)
 |> Seq.countBy (fun game -> game.``Home Team``) //countBy generates a sequence of tuples. This one represents the number of wins

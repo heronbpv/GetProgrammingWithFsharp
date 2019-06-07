@@ -7,3 +7,10 @@ A - They are more flexible, and don't depend on intermediate steps or languages 
 
 3 - Is the number of type providers fixed?
 A - No. Being fundamentally just an f# assembly, anyone can build one. The templates for creating TPs are publicly avaiable.
+
+Quick check 30.2 answers:
+1 - What are erased types?
+A - They're types which have their type information erased at runtime by the type provider, being reduced to simple objects to avoid the type information overhead.
+
+2 - What are backtick members?
+A - Members which are declared using double backticks (``member name``). Their name declarations can then use pretty much any illegal symbols of name declarations without causing errors.
