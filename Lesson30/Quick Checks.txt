@@ -1,0 +1,9 @@
+Quick check 30.1 answers:
+1 - What is a type provider?
+A - A component that provides types, properties and methods for use in your program. In other words, it's a compile time, real time code generator.
+
+2 - How do type providers differ from T4 templates?
+A - They are more flexible, and don't depend on intermediate steps or languages to generate the types for you to access, being assemblies that plug directly to the compiler instead.
+
+3 - Is the number of type providers fixed?
+A - No. Being fundamentally just an f# assembly, anyone can build one. The templates for creating TPs are publicly avaiable.
