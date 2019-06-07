@@ -37,3 +37,21 @@ data
 |> Seq.take 10
 |> Chart.Column
 |> Chart.Show
+
+//@Try this 30
+//@Question: Which are the top 5 teams that scored the most goals? Display the results as a pie cart.
+
+let awayTeamsAndGoals = 
+    data 
+    |> Array.map (fun game -> game.``Away Team``, game.``Full Time Away Goals``)
+let homeTeamsAndGoals =
+    data 
+    |> Array.map (fun game -> game.``Home Team``, game.``Full Time Home Goals``)
+
+awayTeamsAndGoals
+|> Array.append homeTeamsAndGoals
+|> Array.groupBy fst //The first element is the team name, the second is an array of team names and goals. Not the most optimal...
+|> Array.map (fun (team, goals) -> team, (goals |> Array.map snd |> Array.sum)) //Reduces the second element of the tuple to a single number. Is there a better way?
+|> Array.take 5
+|> Chart.Pie
+|> Chart.Show
