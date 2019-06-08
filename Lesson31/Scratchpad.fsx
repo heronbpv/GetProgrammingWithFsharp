@@ -32,3 +32,18 @@ let nsjson = Nuget.Load @"https://www.nuget.org/packages/Newtonsoft.Json"
 |> Seq.map (fun versions -> versions.Version, versions.Downloads)
 |> Chart.Column
 |> Chart.Show
+
+//@Try this 31
+type DT = HtmlProvider< @"https://en.wikipedia.org/wiki/List_of_songs_recorded_by_Dream_Theater">
+let dtAlbuns = DT.GetSample()
+
+open System
+dtAlbuns.Tables.List.Rows
+|> Array.map (fun album -> album.Album, album.Year.ToString())
+|> Array.distinct
+|> Array.filter (fun (albumName, _) -> not (albumName.Equals("N/A", StringComparison.OrdinalIgnoreCase)))
+|> Array.groupBy (fun (_, releaseYear) -> releaseYear)
+|> Array.map (fun (year, albuns) -> year, albuns.Length)
+|> Array.sortBy (fun (year, _) -> year)
+|> Chart.Line
+|> Chart.Show
