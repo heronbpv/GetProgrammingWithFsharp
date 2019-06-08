@@ -1,0 +1,6 @@
+Quick check 31.1 answers:
+1 - Which type provider would you use to read data from a SOAP service?
+A - The WSDL type provider.
+
+2 - Which package do the JSON and HTML type providers live in?
+A - In the fsharp data package.
