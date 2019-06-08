@@ -4,3 +4,10 @@ A - The WSDL type provider.
 
 2 - Which package do the JSON and HTML type providers live in?
 A - In the fsharp data package.
+
+Quick check 31.2 answers:
+1 - Why should you be wary of working with data sources that charge per request?
+A - Because every time the type provider has to generate type information, such as when you dot into a property of the type, you're effectivelly making a request to the data source.
+
+2 - Why can working with live data sources be an issue if you lose internet access?
+A - Because then the type provider stops working as intended, since the loss means it can't query the source to produce type information, which will result in a compile time error.
