@@ -11,3 +11,7 @@ A - Because every time the type provider has to generate type information, such 
 
 2 - Why can working with live data sources be an issue if you lose internet access?
 A - Because then the type provider stops working as intended, since the loss means it can't query the source to produce type information, which will result in a compile time error.
+
+Quick check 31.3 answers:
+1 - What does it mean to redirect a type provider at runtime?
+A - It means that you load a different source at runtime from the one you used to create declare the provider (e.g. the one present in the type declaration) at compile time.
