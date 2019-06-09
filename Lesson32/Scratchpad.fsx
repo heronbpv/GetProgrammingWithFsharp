@@ -22,3 +22,7 @@
  ProductCategory.AddRow("Long Shorts", Some 3)
  ProductCategory.AddRow("Wooly Hats", Some 4)
  ProductCategory.Update()
+
+ type Categories = SqlEnumProvider<"SELECT Name, ProductCategoryId FROM SalesLT.ProductCategory", Conn>
+ let woolyHats = Categories.``Wooly Hats``
+ printfn "Wooly Hats has ID %d" woolyHats

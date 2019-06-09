@@ -1,0 +1,6 @@
+Quick check 32.1 answers:
+1 - How does the SqlCommandProvider remove the risk of “stringly-typed” queries?
+A - By generating strongly typed, compile time information about the table it queried upon creation.
+
+2 - In addition to manually creating INSERT statements, how else does the SqlClient package let you perform data insertion?
+A - Through DataTables, which provide both basic insert and batch insert, the latter via SQL Bulk Copy functionality.
