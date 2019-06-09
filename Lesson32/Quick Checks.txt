@@ -4,3 +4,10 @@ A - By generating strongly typed, compile time information about the table it qu
 
 2 - In addition to manually creating INSERT statements, how else does the SqlClient package let you perform data insertion?
 A - Through DataTables, which provide both basic insert and batch insert, the latter via SQL Bulk Copy functionality.
+
+Quick check 32.2 answers:
+1 - What’s the key distinction between SqlClient and SQLProvider?
+A - SqlClient operates at a low level, in a manner that resembles pure ADO.Net, while SQLProvider works through a stateful context, akin to a ORM like Entity Framework.
+
+2 - Is SQLProvider coupled to just MS SQL Server?
+A - No, as demonstrated by the SqlDataProvider type constructor, it's possible to connect to other suported databases, by specifying the type parameter DatabaseVendor during declaration.
