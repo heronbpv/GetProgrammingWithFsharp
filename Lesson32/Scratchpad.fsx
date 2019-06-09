@@ -1,13 +1,6 @@
 (** 
- * localdb CREATE USER [NT AUTHORITY\NETWORK SERVICE] FOR LOGIN [NT AUTHORITY\NETWORK SERVICE]; 
- * returns Windows NT user or group 'NT AUTHORITY\NETWORK SERVICE' not found. Check the name again.
- * Switch the instruction to: 
-CREATE USER [NETWORK SERVICE] 
-            WITHOUT LOGIN 
-            WITH DEFAULT_SCHEMA = dbo 
-GO
- * Then, change the references to [NT AUTHORITY\NETWORK SERVICE] to [NETWORK SERVICE].
- * The database is generated empty, though...
+ * Import the database .bak, found here "https://github.com/Microsoft/sql-server-samples/releases/tag/adventureworks"(the 2016 LT version), 
+ * by following the instructions found here "https://docs.microsoft.com/en-gb/visualstudio/data-tools/install-sql-server-sample-databases?view=vs-2015".
  **)
 
  #I @"..\get-programming-fsharp-master\packages"
