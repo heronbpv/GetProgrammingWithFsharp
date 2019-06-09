@@ -21,3 +21,11 @@ GO
  let customers = GetCostumers.Create(Conn).Execute() |> Seq.toArray
  let customer = customers.[0]
  printfn "%s %s works for %s" customer.FirstName customer.LastName (Option.get customer.CompanyName) //Option.defaultValue seems to not been available... beware exceptions!
+
+ //@Now you try 32.2.2
+ type AdventureWorks = SqlProgrammabilityProvider<Conn>
+ let ProductCategory = new AdventureWorks.SalesLT.Tables.ProductCategory()
+ ProductCategory.AddRow("Mittens", Some 3)
+ ProductCategory.AddRow("Long Shorts", Some 3)
+ ProductCategory.AddRow("Wooly Hats", Some 4)
+ ProductCategory.Update()
