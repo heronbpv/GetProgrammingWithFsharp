@@ -1,0 +1,9 @@
+Quick check 33.1 answers:
+1 - Can you build APIs from type providers?
+A - Yes, certainly. But care must be taken particularly not to expose the types provided to users of the API.
+
+2 - What rule must be followed in order to compose two functions together?
+A - The output of the first function must have the same type as the last input of the second function. Exactly as in the pipelining idea.
+
+3 - Can we reference provided types statically in function signatures?
+A - Yes, although it's not advisable to do so in public facing functions!
