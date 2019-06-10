@@ -1,0 +1,1 @@
+#I @"..\get-programming-fsharp-master\packages"
