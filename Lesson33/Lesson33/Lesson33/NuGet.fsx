@@ -5,9 +5,13 @@ open FSharp.Data
 //For whatever reason, at the time of writing this, the type provider can't load the relative path once sent to fsi, even though the code compiles...
 type HtmlPage = HtmlProvider< @"D:\Programacao\GetProgrammingWithFsharp\get-programming-fsharp-master\data\sample-package.html">
 
+let getPackagePage name = 
+    let package = HtmlPage.Load(sprintf "https://www.nuget.org/packages/%s" name)
+    package
+
 ///Retrieves information about the number of downloads of a given package.
 let getDownloadsForPackage name = 
-    let package = HtmlPage.Load(sprintf "https://www.nuget.org/packages/%s" name)
+    let package = getPackagePage name
     package.Tables.``Version History``.Rows
     |> Seq.sumBy (fun versionHistory -> versionHistory.Downloads)
 
@@ -18,7 +22,7 @@ getDownloadsForPackage "FSharp.Data"
 
 open System
 let getDetailsForVersion name text =
-    let package = HtmlPage.Load(sprintf "https://www.nuget.org/packages/%s" name)
+    let package = getPackagePage name
     package.Tables.``Version History``.Rows
     |> Seq.tryFind (fun versionHistory -> versionHistory.Version.Contains text)
 
