@@ -47,3 +47,23 @@ let getDetailsForCurrentVersion = //And here is a example that got broken by tim
 getDetailsForCurrentVersion "Newtonsoft.Json"
 getDetailsForCurrentVersion "EntityFramework"
 getDetailsForCurrentVersion "FSharp.Data"
+
+open System
+type PackageVersion = 
+    | CurrentVersion
+    | Prerelease
+    | Old
+
+type VersionDetails = 
+    {
+        Version: Version //This comes from the System namespace!
+        Downloads: decimal
+        PackageVersion: PackageVersion
+        LastUpdated: DateTime
+    }
+
+type NuGetPackage = 
+    {
+        PackageName: string
+        Versions: VersionDetails list
+    }
