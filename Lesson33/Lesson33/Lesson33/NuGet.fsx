@@ -36,3 +36,12 @@ let getDetailsForVersion versionText =
 getDetailsForVersion "4.9" "Newtonsoft.Json"
 getDetailsForVersion "3.0" "EntityFramework"
 getDetailsForVersion "1.0" "FSharp.Data"
+
+///Checks information about the current version of a given NuGet package.
+let getDetailsForCurrentVersion = //And here is a example that got broken by time: there's no more a (this version) row.
+    getDetailsForVersion "(this version)"
+
+//Tests - only for completeness sake, as these are guaranteed to return none.
+getDetailsForCurrentVersion "Newtonsoft.Json"
+getDetailsForCurrentVersion "EntityFramework"
+getDetailsForCurrentVersion "FSharp.Data"
