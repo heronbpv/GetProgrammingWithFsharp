@@ -38,10 +38,12 @@ getDetailsForVersion "3.0" "EntityFramework"
 getDetailsForVersion "1.0" "FSharp.Data"
 
 ///Checks information about the current version of a given NuGet package.
-let getDetailsForCurrentVersion = //And here is a example that got broken by time: there's no more a (this version) row.
-    getDetailsForVersion "(this version)"
+let getDetailsForCurrentVersion = //And here is a example that got broken by time, at least the suggested solution in the book: there's no more a (this version) row.
+    //getDetailsForVersion "(this version)"
+    //So, instead, after inspecting the nuget page for one of the examples, I made this change: instead of the above call, just get the head of the collection
+    loadVersionsListForNugetPackage >> Seq.head //This is because the first element, the head, is always the most recent package version, at least at the time of writing!
 
-//Tests - only for completeness sake, as these are guaranteed to return none.
+//Tests - correctly returns the most recent package version, see comments on the function!
 getDetailsForCurrentVersion "Newtonsoft.Json"
 getDetailsForCurrentVersion "EntityFramework"
 getDetailsForCurrentVersion "FSharp.Data"
