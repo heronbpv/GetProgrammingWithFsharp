@@ -7,3 +7,13 @@ A - The output of the first function must have the same type as the last input o
 
 3 - Can we reference provided types statically in function signatures?
 A - Yes, although it's not advisable to do so in public facing functions!
+
+Quick check 33.2 answers:
+1 - Give one reason you might use a decoupled API over type providers.
+A - To avoid exposing the provided types, with their strange shapes and whatnot, to users of the API.
+
+2 - What benefit does pattern matching over lists give you versus indexing in directly?
+A - It abstracts away the indexing, which is error prone, by providing a read-to-use shape for the list at compile time. Also, index access for lists is bad for performance! Do it in an array instead.
+
+3 - What does the :: symbol mean in the context of pattern matching over lists?
+A - It means a clear, known shape of the list, separating it's first element to the rest of it. This separation is also commonly referred to as head and tail.
