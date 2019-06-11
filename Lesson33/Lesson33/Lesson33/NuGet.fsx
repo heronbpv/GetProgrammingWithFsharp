@@ -6,16 +6,22 @@ open FSharp.Data
 type HtmlPage = HtmlProvider< @"D:\Programacao\GetProgrammingWithFsharp\get-programming-fsharp-master\data\sample-package.html">
 
 ///Gets the HTML page of a specified NuGet package
-let getNugetPackagePage = //Something that bothers me: whenever I use the function composition operator, I lose visual information about the params being used.
-    sprintf "https://www.nuget.org/packages/%s" >> HtmlPage.Load
+//let getNugetPackagePage = //Something that bothers me: whenever I use the function composition operator, I lose visual information about the params being used.
+//    sprintf "https://www.nuget.org/packages/%s" >> HtmlPage.Load
+let getNugetPackagePage packageName = //Refactoring the original idea, using pipes instead. That way, I can keep propagating the package name to the functions that need it.
+    sprintf "https://www.nuget.org/packages/%s" packageName
+    |> HtmlPage.Load
 
 ///Provides a enumeration based on the elements of the Version table of a NuGet package HTML page.
 let getVersionsListFromNugetPackage (packagePage:HtmlPage) =
     packagePage.Tables.``Version History``.Rows
 
 ///Loads a collection of versions from a given NuGet package name.
-let loadVersionsListForNugetPackage = //Maybe refactor the above code to be internal to this function?
-    getNugetPackagePage >> getVersionsListFromNugetPackage
+//let loadVersionsListForNugetPackage = //Maybe refactor the above code to be internal to this function?
+//    getNugetPackagePage >> getVersionsListFromNugetPackage
+let loadVersionsListForNugetPackage packageName = //Same as getNugetPackageName
+    getNugetPackagePage packageName
+    |> getVersionsListFromNugetPackage
 
 ///Retrieves information about the number of downloads of a given NuGet package.
 let getDownloadsForPackage = 
@@ -105,3 +111,26 @@ let enrich (packageName:string) (rows:HtmlPage.VersionHistory.Row []) =
 enrich "Newtonsoft.Json" (loadVersionsListForNugetPackage "Newtonsoft.Json")
 enrich "EntityFramework" (loadVersionsListForNugetPackage "EntityFramework")
 enrich "FSharp.Data" (loadVersionsListForNugetPackage "FSharp.Data")
+
+//Pasting these functions here again to test, and to avoid moving the now you try 33.2.3 code around!
+let loadVersionsListForNugetPackage2 packageName = 
+    //And, by using pipes, I can both be explicit about what is necessary at the function declaration, and propagate the param to the functions that need it
+    getNugetPackagePage packageName
+    |> getVersionsListFromNugetPackage 
+    |> enrich packageName
+    |> (fun package -> package.Versions)
+
+let getDetailsForVersion2 versionText = 
+    loadVersionsListForNugetPackage2 >> Seq.tryFind (fun version -> version.Version.ToString().Equals(versionText, StringComparison.OrdinalIgnoreCase))
+
+getDetailsForVersion2 "12.0.2" "Newtonsoft.Json"
+getDetailsForVersion2 "6.3.0" "EntityFramework"
+getDetailsForVersion2 "3.1.1" "FSharp.Data"
+
+let getDetailsForCurrentVersion2 = //This implementation is unchanged from the above. Hooray!
+    loadVersionsListForNugetPackage2 >> Seq.head 
+
+getDetailsForCurrentVersion2 "Newtonsoft.Json"
+getDetailsForCurrentVersion2 "EntityFramework"
+getDetailsForCurrentVersion2 "FSharp.Data"
+(getDetailsForCurrentVersion2 "Newtonsoft.Json") = (getDetailsForVersion2 "12.0.2" "Newtonsoft.Json" |> Option.get)
