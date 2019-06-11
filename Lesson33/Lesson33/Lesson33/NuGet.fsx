@@ -8,7 +8,7 @@ type HtmlPage = HtmlProvider< @"D:\Programacao\GetProgrammingWithFsharp\get-prog
 ///Gets the HTML page of a specified NuGet package
 //let getNugetPackagePage = //Something that bothers me: whenever I use the function composition operator, I lose visual information about the params being used.
 //    sprintf "https://www.nuget.org/packages/%s" >> HtmlPage.Load
-let getNugetPackagePage packageName = //Refactoring the original idea, using pipes instead. That way, I can keep propagating the package name to the functions that need it.
+let getNugetPackagePage packageName = //Refactoring the original idea, using pipes instead. That way, I can keep propagating the package name to the functions that needs it.
     sprintf "https://www.nuget.org/packages/%s" packageName
     |> HtmlPage.Load
 
