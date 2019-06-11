@@ -48,6 +48,7 @@ getDetailsForCurrentVersion "Newtonsoft.Json"
 getDetailsForCurrentVersion "EntityFramework"
 getDetailsForCurrentVersion "FSharp.Data"
 
+//@Now you try 33.2.3
 open System
 type PackageVersion = 
     | CurrentVersion
@@ -65,5 +66,42 @@ type VersionDetails =
 type NuGetPackage = 
     {
         PackageName: string
-        Versions: VersionDetails list
+        Versions: VersionDetails []
     }
+
+let parse isCurrentVersion (versionText:string) = //Added the isCurrentVersion parameter, since the (this version) text is no more; Now, the responsibility is on the caller to know
+    let splitString text separator = if String.IsNullOrWhiteSpace text then [||] else text.Split [|separator|];
+    let tokens = splitString versionText ' ' |> Array.rev //Reverse the array, since the version info is always at the end.
+    match tokens |> List.ofArray with
+    | [] -> 
+        failwith "Must be at least two elements to a version"
+    | x::_ -> 
+        let tokens = splitString x '-'
+        match (tokens |> List.ofArray, isCurrentVersion) with
+        | x::_, true -> (Version.Parse x), CurrentVersion
+        | x::xs, false when not xs.IsEmpty -> (Version.Parse x), Prerelease
+        | x::_, false -> (Version.Parse x), Old
+        | _ -> failwith "Unknown version format"
+
+//Tests - verifying the functionality of parse
+(getDetailsForCurrentVersion "Newtonsoft.Json").Version |> parse true
+(getDetailsForCurrentVersion "EntityFramework").Version |> parse true
+(getDetailsForCurrentVersion "FSharp.Data").Version |> parse true
+
+(getDetailsForCurrentVersion "Newtonsoft.Json").Version |> parse false
+(getDetailsForCurrentVersion "EntityFramework").Version |> parse false
+(getDetailsForCurrentVersion "FSharp.Data").Version |> parse false
+
+let enrich (packageName:string) (rows:HtmlPage.VersionHistory.Row []) = 
+    let versionsList = 
+        rows
+        |> Array.mapi
+            (fun index versionRow -> 
+                let isCurrentVersion = index = 0
+                let version, packageVersion = parse isCurrentVersion versionRow.Version
+                { Version = version; Downloads = versionRow.Downloads; PackageVersion = packageVersion; LastUpdated = versionRow.``Last updated`` } )
+    { PackageName = packageName; Versions = versionsList }
+
+enrich "Newtonsoft.Json" (loadVersionsListForNugetPackage "Newtonsoft.Json")
+enrich "EntityFramework" (loadVersionsListForNugetPackage "EntityFramework")
+enrich "FSharp.Data" (loadVersionsListForNugetPackage "FSharp.Data")
