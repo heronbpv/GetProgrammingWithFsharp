@@ -22,3 +22,5 @@ type DbOperations = SqlEnumProvider<"SELECT Description, OperationId FROM dbo.Op
 // is primed with an account that I know about.
 let accountId = GetAccountId.Create(Conn).Execute("isaac")
 let transactions = FindTransactions.Create(Conn).Execute(accountId.Value) |> Seq.toArray
+let transactionsByOwner = FindTransactionsByOwner.Create(Conn).Execute("isaac") |> Seq.toArray
+let operations = DbOperations.Items
