@@ -7,3 +7,7 @@ A - The connection string is not hardcoded and, thus, can be altered at runtime 
 
 3 - When should you not use connection strings with type providers?
 A - From scripts, since they work with fsi.exe and it, in turn, is it's own .net application, complete with a app.config. This way, when you reference a connection string expected to be in the app.config file, inside a script, and then send it to fsi.exe, the app.config been look at is, by default, the fsi one.
+
+Quick check 34.2 answers:
+1 - Why is it good practice to decouple your data access code from a connection string?
+A - To avoid conflict of usage between compiled application code and script coding. The decopling makes it possible to both sources to use the same system, without generating a negative impact in either.
