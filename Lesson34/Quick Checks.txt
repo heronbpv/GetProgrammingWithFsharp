@@ -11,3 +11,7 @@ A - From scripts, since they work with fsi.exe and it, in turn, is it's own .net
 Quick check 34.2 answers:
 1 - Why is it good practice to decouple your data access code from a connection string?
 A - To avoid conflict of usage between compiled application code and script coding. The decopling makes it possible to both sources to use the same system, without generating a negative impact in either.
+
+Quick check 34.3 answer:
+1 - Why is creating a CI process sometimes more work when using type providers?
+A - Because of the need for a data source to be present at both compile and runtime in order for the type provider to generate the types correctly during the build process.
