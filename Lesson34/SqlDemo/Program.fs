@@ -1,13 +1,12 @@
-﻿open FSharp.Data
-
-//let [<Literal>] Conn = "Server=(localdb)\MSSQLLocalDb;Database=AdventureWorksLT;Integrated Security=SSPI"
-type GetCustomers = SqlCommandProvider<"SELECT TOP 50 * FROM SalesLT.Customer", "Name=AdventureWorks">
+﻿open System.Configuration
 
 [<EntryPoint>]
-let main _ = 
-    let customers = GetCustomers.Create()
-    
-    customers.Execute()
-    |> Seq.iter (fun c -> printfn "%A: %s %s" c.CompanyName c.FirstName c.LastName)
-    
+let main _ =
+    let runtimeConnectionString = //Retrieving a connection string from the configuration file manually.
+        ConfigurationManager
+            .ConnectionStrings
+            .["AdventureWorks"]
+            .ConnectionString
+    //Supplying that connection string to the data access layer.
+    CustomerRepository.printCustomers(runtimeConnectionString)
     0
