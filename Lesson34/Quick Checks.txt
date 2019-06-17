@@ -1,0 +1,9 @@
+Quick check 34.1 answers:
+1 - Can you use connection strings with type providers?
+A - Yes.
+
+2 - Name one benefit of using connection strings with type providers.
+A - The connection string is not hardcoded and, thus, can be altered at runtime (e.g. in a deployed environment).
+
+3 - When should you not use connection strings with type providers?
+A - From scripts, since they work with fsi.exe and it, in turn, is it's own .net application, complete with a app.config. This way, when you reference a connection string expected to be in the app.config file, inside a script, and then send it to fsi.exe, the app.config been look at is, by default, the fsi one.
