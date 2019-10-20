@@ -1,7 +1,9 @@
-#load "Domain.fs"
-#load "Operations.fs"
-#r @"..\packages\FSharp.Data.SqlClient.1.8.2\lib\net40\FSharp.Data.SqlClient.dll"
-#load "SqlRepository.fs"
+//#load "Domain.fs"
+//#load "Operations.fs"
+//#r @"..\packages\FSharp.Data.SqlClient.1.8.2\lib\net40\FSharp.Data.SqlClient.dll"
+//#load "SqlRepository.fs"
+
+#load @".\scripts\load-project-debug.fsx"
 
 open Capstone6.Operations
 open Capstone6.Domain

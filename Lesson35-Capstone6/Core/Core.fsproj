@@ -63,6 +63,8 @@
     <None Include="App.config" />
     <None Include="Scratchpad.fsx" />
     <Content Include="packages.config" />
+    <None Include="Scripts\load-references-debug.fsx" />
+    <None Include="Scripts\load-project-debug.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Data.SqlClient">
