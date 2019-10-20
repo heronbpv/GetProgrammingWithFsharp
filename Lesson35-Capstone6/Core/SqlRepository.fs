@@ -1,4 +1,4 @@
-﻿module internal Capstone6.SqlRepository
+﻿module Capstone6.SqlRepository
 
 open Capstone6.Domain
 open FSharp.Data
@@ -7,7 +7,7 @@ open System
 
 [<AutoOpen>]
 module private DB =
-    let [<Literal>] Conn = @"Data Source=(localdb)\MSSQLLocalDB;Database=BankAccountDb;Integrated Security=True"
+    let [<Literal>] Conn = "Name=AccountsDb"
     type AccountsDb = SqlProgrammabilityProvider<Conn>
     type GetAccountId = SqlCommandProvider<"SELECT TOP 1 AccountId FROM dbo.Account WHERE Owner = @owner", Conn, SingleRow = true>
     type FindTransactions = SqlCommandProvider<"SELECT Timestamp, OperationId, Amount FROM dbo.AccountTransaction WHERE AccountId = @accountId", Conn>
@@ -15,8 +15,8 @@ module private DB =
     type DbOperations = SqlEnumProvider<"SELECT Description, OperationId FROM dbo.Operation", Conn>
 
 
-let getAccountAndTransactions (owner:string) : (Guid * Transaction seq) option =
-    let transactionsByOwner = FindTransactionsByOwner.Create(Conn).Execute(owner) |> Seq.toList
+let getAccountAndTransactions (connectionString:string) (owner:string) =
+    let transactionsByOwner = FindTransactionsByOwner.Create(connectionString).Execute(owner) |> Seq.toList
     match transactionsByOwner with
     | [] -> 
         None
@@ -41,13 +41,16 @@ let getAccountAndTransactions (owner:string) : (Guid * Transaction seq) option =
             }
         Some (x.AccountId, transactions)
 
-let writeTransaction (accountId:Guid) (owner:string) (transaction:Transaction) =
+let writeTransaction (connectionString:string) (accountId:Guid) (owner:string) (transaction:Transaction) =
+    use sqlconnection = new SqlConnection(connectionString) //Creating the connection with the database
+    sqlconnection.Open()
+
     try //I don't particularly like this approach here, but it IS a quick way of developing this case... so YMMV.
         use accounts = new AccountsDb.dbo.Tables.Account()
         accounts.AddRow(owner, accountId)
         //Since the update is probably returning the number of rows affected by the operation, discarding it is an option.
         //Logging would be better, but this is not the appropriate type of project for it.
-        accounts.Update() |> ignore
+        accounts.Update(sqlconnection) |> ignore
     with
     | :? SqlException as ex when ex.Message.Contains "Violation of PRIMARY KEY constraint" ->
         ()
@@ -62,4 +65,4 @@ let writeTransaction (accountId:Guid) (owner:string) (transaction:Transaction) =
             | Deposit -> DbOperations.Deposit
         getOperationId transaction.Operation
     transactions.AddRow(accountId, transaction.Timestamp, operationId, transaction.Amount)
-    transactions.Update() |> ignore //Same reason as in the account update call.
+    transactions.Update(sqlconnection) |> ignore //Same reason as in the account update call.

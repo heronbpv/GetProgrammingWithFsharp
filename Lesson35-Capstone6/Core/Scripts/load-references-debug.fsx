@@ -8,3 +8,4 @@
 #r "System.dll"
 #r "System.Numerics.dll"
 #r "System.Xml.dll"
+#r "System.Transactions.dll"

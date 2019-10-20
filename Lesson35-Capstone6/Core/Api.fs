@@ -5,34 +5,53 @@ open Capstone6.Domain
 open Capstone6.Operations
 open System
 
-/// Loads an account from disk. If no account exists, an empty one is automatically created.
-let LoadAccount customer =
-    customer.Name
-    |> SqlRepository.getAccountAndTransactions // FileRepository.tryFindTransactionsOnDisk
-    |> Option.map (Operations.buildAccount customer.Name)
-    |> defaultArg <|
-        InCredit(CreditAccount { AccountId = Guid.NewGuid()
-                                 Balance = 0M
-                                 Owner = customer })
-/// Deposits funds into an account.
-let Deposit amount customer =
-    let ratedAccount = LoadAccount customer
-    let accountId = ratedAccount.GetField (fun a -> a.AccountId)
-    let owner = ratedAccount.GetField(fun a -> a.Owner)
-    auditAs Deposit SqlRepository.writeTransaction(*FileRepository.writeTransaction*) deposit amount ratedAccount accountId owner
+type IBankApi = 
+    /// Loads an account from disk. If no account exists, an empty one is automatically created.
+    abstract member LoadAccount : customer:Customer -> RatedAccount
+    /// Deposits funds into an account.
+    abstract member Deposit : amount:Decimal -> customer:Customer -> RatedAccount
+    /// Withdraws funds from an account that is in credit.
+    abstract member Withdraw : amount:Decimal -> customer:Customer -> RatedAccount
+    /// Loads the transaction history for an owner.
+    abstract member LoadTransactionHistory : customer:Customer -> Transaction seq
 
-/// Withdraws funds from an account that is in credit.
-let Withdraw amount customer =
-    let account = LoadAccount customer
-    match account with
-    | InCredit (CreditAccount account as creditAccount) -> 
-        auditAs Withdraw SqlRepository.writeTransaction(*FileRepository.writeTransaction*) withdraw amount creditAccount account.AccountId account.Owner
-    | account -> 
-        account
+let private buildApi getAccountAndTransactions writeTransaction = 
+    { new IBankApi with
+          member this.LoadAccount(customer) = 
+            customer.Name
+            |> getAccountAndTransactions 
+            |> Option.map (Operations.buildAccount customer.Name)
+            |> defaultArg <|
+                InCredit(CreditAccount { AccountId = Guid.NewGuid()
+                                         Balance = 0M
+                                         Owner = customer })
+          member this.Deposit amount customer = 
+            let ratedAccount = this.LoadAccount customer
+            let accountId = ratedAccount.GetField (fun a -> a.AccountId)
+            let owner = ratedAccount.GetField(fun a -> a.Owner)
+            auditAs Deposit writeTransaction deposit amount ratedAccount accountId owner
+          member this.Withdraw amount customer = 
+            let account = this.LoadAccount customer 
+            match account with
+            | InCredit (CreditAccount account as creditAccount) -> 
+                auditAs Withdraw writeTransaction withdraw amount creditAccount account.AccountId account.Owner
+            | account -> 
+                account
+          member this.LoadTransactionHistory(customer) = 
+            customer.Name
+            |> getAccountAndTransactions 
+            |> Option.map(fun (_,txns) -> txns)
+            |> defaultArg <| Seq.empty
+    }
 
-/// Loads the transaction history for an owner.
-let LoadTransactionHistory customer =
-    customer.Name
-    |> SqlRepository.getAccountAndTransactions //FileRepository.tryFindTransactionsOnDisk
-    |> Option.map(fun (_,txns) -> txns)
-    |> defaultArg <| Seq.empty
+/// Creates a SQL-enabled API.
+let CreateSqlApi connectionString = 
+    buildApi
+        (SqlRepository.getAccountAndTransactions connectionString)
+        (SqlRepository.writeTransaction connectionString)
+
+/// Gets a handle to the file-based API.
+let CreateFileApi = 
+    buildApi
+        (FileRepository.tryFindTransactionsOnDisk)
+        (FileRepository.writeTransaction)

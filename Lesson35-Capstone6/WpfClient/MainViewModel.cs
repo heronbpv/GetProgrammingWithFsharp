@@ -2,6 +2,7 @@
 using PropertyChanged;
 using System;
 using System.Collections.ObjectModel;
+using System.Configuration;
 
 namespace Capstone6
 {
@@ -14,6 +15,9 @@ namespace Capstone6
         public int Balance { get; private set; }
         public ObservableCollection<Transaction> Transactions { get; private set; }
         private RatedAccount account;
+        //@Now you try 35.4.3 - Loading the connection string from the appconfig in the view model.
+        private Api.IBankApi bankApi = Api.CreateSqlApi(ConfigurationManager.ConnectionStrings["AccountsDb"]?.ConnectionString ?? String.Empty);
+        
         private Tuple<bool, int> TryParseInt(object value)
         {
             int output = 0;
@@ -31,7 +35,7 @@ namespace Capstone6
         private void LoadTransactions()
         {
             Transactions.Clear();
-            foreach (var txn in Api.LoadTransactionHistory(Owner))
+            foreach (var txn in bankApi.LoadTransactionHistory(Owner))
                 Transactions.Add(txn);
         }
 
@@ -40,15 +44,15 @@ namespace Capstone6
             Owner = new Customer("isaac");
             Transactions = new ObservableCollection<Transaction>();
             this.LoadTransactions();
-            UpdateAccount(Api.LoadAccount(Owner));
+            UpdateAccount(bankApi.LoadAccount(Owner));
             DepositCommand = new Command<int>(
                 amount =>
                 {
-                    UpdateAccount(Api.Deposit(amount, Owner));
+                    UpdateAccount(bankApi.Deposit(amount, Owner));
                     WithdrawCommand.Refresh();
                 }, TryParseInt);
             WithdrawCommand = new Command<int>(
-                amount => UpdateAccount(Api.Withdraw(amount, Owner)),
+                amount => UpdateAccount(bankApi.Withdraw(amount, Owner)),
                 TryParseInt,
                 () => account.IsInCredit);
         }

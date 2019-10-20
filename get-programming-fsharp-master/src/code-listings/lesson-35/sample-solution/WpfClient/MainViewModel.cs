@@ -17,6 +17,7 @@ namespace Capstone6
         public int Balance { get; private set; }
         public ObservableCollection<Transaction> Transactions { get; private set; }
         private RatedAccount account;
+        
         private Api.IBankApi bankApi = Api.CreateSqlApi(ConfigurationManager.ConnectionStrings["AccountsDb"]?.ConnectionString ?? String.Empty);
 
         private Tuple<bool, int> TryParseInt(object value)
