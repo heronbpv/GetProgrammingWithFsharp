@@ -2,6 +2,7 @@
 
 open Capstone6.Domain
 open FSharp.Data
+open System.Data.SqlClient
 open System
 
 [<AutoOpen>]
@@ -41,4 +42,24 @@ let getAccountAndTransactions (owner:string) : (Guid * Transaction seq) option =
         Some (x.AccountId, transactions)
 
 let writeTransaction (accountId:Guid) (owner:string) (transaction:Transaction) =
-    ()
+    try //I don't particularly like this approach here, but it IS a quick way of developing this case... so YMMV.
+        use accounts = new AccountsDb.dbo.Tables.Account()
+        accounts.AddRow(owner, accountId)
+        //Since the update is probably returning the number of rows affected by the operation, discarding it is an option.
+        //Logging would be better, but this is not the appropriate type of project for it.
+        accounts.Update() |> ignore
+    with
+    | :? SqlException as ex when ex.Message.Contains "Violation of PRIMARY KEY constraint" ->
+        ()
+    | _ ->
+        reraise()
+
+    use transactions = new AccountsDb.dbo.Tables.AccountTransaction()
+    let operationId =
+        let getOperationId operation =
+            match operation with
+            | Withdraw -> DbOperations.Withdraw
+            | Deposit -> DbOperations.Deposit
+        getOperationId transaction.Operation
+    transactions.AddRow(accountId, transaction.Timestamp, operationId, transaction.Amount)
+    transactions.Update() |> ignore //Same reason as in the account update call.
