@@ -19,3 +19,7 @@ A - In the context of the Async computation expression (CE for short), it's to a
 
 2 - When do you need to use the return keyword in F#?
 A - Also in the context of the Async CE, at the end of the computation, to wrap it's result inside the Async type.
+
+Quick check 36.4 answers:
+1 - What does Async.Parallel do?
+A - Combines a collection of async workflows into a single one, a strategy known as Fork/Join.

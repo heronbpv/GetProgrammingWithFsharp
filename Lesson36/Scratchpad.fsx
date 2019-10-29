@@ -68,9 +68,9 @@ let downloadData url =
         return page.Length
     }
 
-//This pipeline will download the pages in parallel, then sum up their sizes, in a manner akin to a fork/join strategy.
+//This pipeline will download the pages in parallel, then join the results in a combined array, which is then sum up.
 [|"http://www.fsharp.org"; "http://microsoft.com"; "http://fsharpforfunandprofit.com"|]
-|> Array.map downloadData
-|> Async.Parallel //Fork part of the pipeline
-|> Async.RunSynchronously
-|> Array.sum //Join part of the pipeline
+|> Array.map downloadData //Returns an array of async expressions, which will compute the length of each referenced page when executed.
+|> Async.Parallel //Applies Fork/Join strategy to the mapped async array, parallelizing their proccess and then later combining the results in a new array.
+|> Async.RunSynchronously //Runs the asynchronous computation.
+|> Array.sum //Aggregates the results.
