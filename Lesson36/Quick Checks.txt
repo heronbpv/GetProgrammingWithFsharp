@@ -1,0 +1,7 @@
+Quick check 36.1 answers:
+1 - What’s the preferred type to use in .NET when executing work in the background?
+A - A Task. Or more specifically, the type System.Threading.Tasks.Task.
+
+2 - What’s the difference between CPU- and I/O-bound workloads in terms of their activity on a thread?
+A - CPU-bound workloads are computations that take a long time to complete, thus blocking other processes waiting for CPU time to be freed. Wathever thread they're in is then hang on until the computation ends. 
+I/O-bound computations, on the other hand, are waiting for a external call to respond to it's request, blocking further processing until said call is answered. In that way, the thread responsible for this process will be left idle until the return is given.
