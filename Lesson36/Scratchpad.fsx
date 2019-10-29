@@ -35,3 +35,10 @@ let asyncLength:Async<int> =
     asyncBlock
 
 let length = asyncLength |> Async.RunSynchronously
+
+let getTextAsync = async { return "HELLO" }
+let printHelloWorldAsync = 
+    async {
+        let! text = getTextAsync
+        return printfn "%s WORLD" text
+    }

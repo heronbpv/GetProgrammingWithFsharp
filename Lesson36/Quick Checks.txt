@@ -12,3 +12,10 @@ A - The return keyword. Which is just a syntatic sugar for a call to the Return 
 
 2 - Do async workflows immediately execute on creation?
 A - No, they don't. One must explicitly call a executing function (e.g. Start or RunSynchronously) from the Async module.
+
+Quick check 36.3 answers:
+1 - What’s the purpose of the let! keyword?
+A - In the context of the Async computation expression (CE for short), it's to await for the result of another asynchronous computation, but to do so asynchronously as well.
+
+2 - When do you need to use the return keyword in F#?
+A - Also in the context of the Async CE, at the end of the computation, to wrap it's result inside the Async type.
