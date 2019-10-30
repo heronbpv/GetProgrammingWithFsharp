@@ -54,23 +54,48 @@ let createFiftyNumbers =
     }
 createFiftyNumbers |> Async.Start
 
-//@Now you try 36.4
+//@Now you try 36.4 and @Now you try 36.5.1. Decided to refator these two examples into one, with some parameterization to control which side to use: Async or Task.
 open System.Net
-///Downloads a page, then returns it's size.
-let downloadData url = 
+///Array of sites used for the examples
+let sites = [|"http://www.fsharp.org"; "http://microsoft.com"; "http://fsharpforfunandprofit.com"|]
+
+///A simple union to differentiate operations using Async workflows or Tasks.
+type AsyncOrTask = Async | Task
+
+///Downloads a page then returns it's size.
+let downloadData asyncOrTask url = 
     //See https://social.msdn.microsoft.com/Forums/pt-BR/ad198bca-a5b5-4f62-aab9-e3fa0e75f7ee/webclient-erroquota-solicitao-foi-anulada-no-foi-possvel-criar-um-canal-seguro-para?forum=vsvbasicpt
     //Seems to be some sort of configuration that must be done to avoid errors accessing http pages (a.k.a. pages without a certificate).
     ServicePointManager.SecurityProtocol <- SecurityProtocolType.Tls12 ||| SecurityProtocolType.Ssl3
     async {
         let uri = new System.Uri(url)
         use client = new WebClient()
-        let! page = client.AsyncDownloadData uri
+        let! page = //Asynchornously downloads the page; Decices how based on the asyncOrTask argument
+            match asyncOrTask with
+            | Async -> client.AsyncDownloadData uri
+            | Task  -> client.DownloadDataTaskAsync uri |> Async.AwaitTask
         return page.Length
     }
 
-//This pipeline will download the pages in parallel, then join the results in a combined array, which is then sum up.
-[|"http://www.fsharp.org"; "http://microsoft.com"; "http://fsharpforfunandprofit.com"|]
-|> Array.map downloadData //Returns an array of async expressions, which will compute the length of each referenced page when executed.
-|> Async.Parallel //Applies Fork/Join strategy to the mapped async array, parallelizing their proccess and then later combining the results in a new array.
-|> Async.RunSynchronously //Runs the asynchronous computation.
-|> Array.sum //Aggregates the results.
+///Applies a Fork/Join strategy to a collection of asynchronous workflows, then runs them
+let parallelExecution asyncOrTask arr = 
+    arr
+    |> Async.Parallel         
+    |> fun x -> //Runs the asynchronous computation, either as an async or task type.
+       match asyncOrTask with 
+       | Async -> x |> Async.RunSynchronously
+       | Task  -> x |> Async.StartAsTask |> (fun y -> y.Result)
+
+///Downloads an array of sites asynchronously in parallel, calculates their sizes (in bytes), then join the results and sum them up.
+let downloadedBytes sites asyncOrTask = 
+    sites
+    |> Array.map (downloadData asyncOrTask) //Returns an array of async expressions, which will compute the length of each referenced page when executed.
+    |> parallelExecution asyncOrTask
+    |> Array.sum
+
+//Strangely enough, the results are different at the time of this comment (30/10/2019 16:47)    
+let asyncResults = downloadedBytes sites Async //208.824 bytes
+let taskResults = downloadedBytes sites Task   //208.879 bytes
+
+printfn "You downloaded %d characters" asyncResults
+printfn "You downloaded %d characters" taskResults
