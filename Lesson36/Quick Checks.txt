@@ -23,3 +23,10 @@ A - Also in the context of the Async CE, at the end of the computation, to wrap 
 Quick check 36.4 answers:
 1 - What does Async.Parallel do?
 A - Combines a collection of async workflows into a single one, a strategy known as Fork/Join.
+
+Quick check 36.5 answers:
+1 - How do you convert from Async to Task ?
+A - Using the combinators from the Async module: AwaitTask to convert from Task to Async, and StartAsTask to convert from Async to Task.
+
+2 - Name one benefit that Task offers over Async.
+A - Better performance at CPU bound computations, and as an extra the ability to report the status of the work in progress.
