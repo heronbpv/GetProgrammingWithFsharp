@@ -1,4 +1,4 @@
-﻿namespace TryThis36_PerfTest.AssemblyInfo
+﻿namespace PerformanceTest.AssemblyInfo
 
 open System.Reflection
 open System.Runtime.CompilerServices
@@ -7,11 +7,11 @@ open System.Runtime.InteropServices
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[<assembly: AssemblyTitle("TryThis36_PerfTest")>]
+[<assembly: AssemblyTitle("PerformanceTest")>]
 [<assembly: AssemblyDescription("")>]
 [<assembly: AssemblyConfiguration("")>]
 [<assembly: AssemblyCompany("")>]
-[<assembly: AssemblyProduct("TryThis36_PerfTest")>]
+[<assembly: AssemblyProduct("PerformanceTest")>]
 [<assembly: AssemblyCopyright("Copyright ©  $year$")>]
 [<assembly: AssemblyTrademark("")>]
 [<assembly: AssemblyCulture("")>]

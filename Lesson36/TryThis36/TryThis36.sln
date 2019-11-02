@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TryThis36_PerfTest", "TryThis36_PerfTest\TryThis36_PerfTest.fsproj", "{388CEFF7-FFE7-4EE7-B59E-7A6398A130FC}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "PerformanceTest", "PerformanceTest\PerformanceTest.fsproj", "{388CEFF7-FFE7-4EE7-B59E-7A6398A130FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
