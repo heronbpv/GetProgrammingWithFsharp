@@ -4,3 +4,10 @@ A - Yes, as long as you use the community template, either by installing locally
 
 2 - Do you need to use CLIMutable to serialize records in JSON for ASP .NET?
 A - No, it's not needed.
+
+Quick check 37.2 answers:
+1 - Why would you create a layer of abstraction from your application code and HTTP request codes?
+A - For a proper separation of concerns, since the application code should not have any knowledge of what HTTP is.
+
+2 - How might you model no result (404) within an F# application?
+A - As an Option type, of value None.
