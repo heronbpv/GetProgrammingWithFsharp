@@ -76,6 +76,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Controllers.fs"/>
+    <Compile Include="Startup.fs"/>
     <Compile Include="Program.fs" />
     <Content Include="packages.config" />
   </ItemGroup>
