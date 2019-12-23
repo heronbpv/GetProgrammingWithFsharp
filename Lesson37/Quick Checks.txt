@@ -1,0 +1,6 @@
+Quick check 37.1 answers:
+1 - Can you create F# web projects in Visual Studio?
+A - Yes, as long as you use the community template, either by installing locally or by online use.
+
+2 - Do you need to use CLIMutable to serialize records in JSON for ASP .NET?
+A - No, it's not needed.
