@@ -16,15 +16,17 @@ module AnimalsRepository =
         ]
     let getAll() = all
     let getAnimal name =
-        if not (Regex.IsMatch(name, "^[a-zA-Z]+$")) then
-            Some (Error "Animal names can only contain letters!")
-        else
-            //TODO: find a better way to handle the Option<Result> here.
-            let result = List.tryFind (fun r -> r.Name = name) all
-            if result.IsNone then
-                Some (Error (sprintf "%s not found." name))
+        async {
+            if not (Regex.IsMatch(name, "^[a-zA-Z]+$")) then
+                return Some (Error "Animal names can only contain letters!")
             else
-                Some (Ok result.Value)
+                //TODO: find a better way to handle the Option<Result> here.
+                let result = List.tryFind (fun r -> r.Name = name) all
+                if result.IsNone then
+                    return Some (Error (sprintf "%s not found." name))
+                else
+                    return Some (Ok result.Value)
+        }
 
 [<AutoOpen>]
 module Helpers =
@@ -42,4 +44,8 @@ type AnimalsController() =
 
     [<Route("animals/{name}")>] //Web API route
     member this.Get(name) = //Defining the GET verb request handler for the api/animals route
-        AnimalsRepository.getAnimal name |> (asResponse this.Request)
+        async {
+            let! result = AnimalsRepository.getAnimal name
+            return result |> asResponse this.Request
+        }
+        |> Async.StartAsTask //Since the Web API middleware can't handle F# asyncs, convert to Task
