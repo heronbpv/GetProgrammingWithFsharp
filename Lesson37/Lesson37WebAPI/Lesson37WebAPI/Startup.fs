@@ -14,11 +14,10 @@ type Startup() =
     static member RegisterWebApi(config: HttpConfiguration) =
         // Configure routing
         config.MapHttpAttributeRoutes()
-
-        // Configure serialization
-        config.Formatters.XmlFormatter.UseXmlSerializer <- true
-        config.Formatters.JsonFormatter.SerializerSettings.ContractResolver <- Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
-
+        
+        //Formatters
+        config.Formatters.Remove(config.Formatters.XmlFormatter) |> ignore
+        config.Formatters.JsonFormatter.SerializerSettings.ContractResolver <- Newtonsoft.Json.Serialization.DefaultContractResolver()
         // Additional Web API settings
 
     member __.Configuration(builder: IAppBuilder) =
