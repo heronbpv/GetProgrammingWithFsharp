@@ -11,3 +11,7 @@ A - For a proper separation of concerns, since the application code should not h
 
 2 - How might you model no result (404) within an F# application?
 A - As an Option type, of value None.
+
+Quick check 37.3 answer:
+1 - How do you return F# results wrapped in async blocks over ASP .NET?
+A - By converting from the Async type to Task via the Async.StartAsTask function.
