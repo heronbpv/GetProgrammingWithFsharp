@@ -15,3 +15,10 @@ A - As an Option type, of value None.
 Quick check 37.3 answer:
 1 - How do you return F# results wrapped in async blocks over ASP .NET?
 A - By converting from the Async type to Task via the Async.StartAsTask function.
+
+Quick check 37.4 answers:
+1 - What’s a web part in Suave?
+A - It's a function that serves as the building block for an HTTP request.
+
+2 - What does Suave’s GET web part do?
+A - Filters incoming HTTP GET requests, passing it along the pipeline if they're.
